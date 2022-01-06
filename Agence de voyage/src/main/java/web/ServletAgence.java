@@ -183,11 +183,24 @@ public class ServletAgence extends HttpServlet {
 						if(request.getServletPath().equals("/AddNewheberg")) {
 							try {
 								String newHeberg=request.getParameter("newHeberg");
-								System.out.println("newHeberg :" + newHeberg);
-								Hebergement hebergement=new Hebergement();
-								hebergement.setNom_heberg(newHeberg);
-								hebergementdao.addHebergement(hebergement);
-								request.getRequestDispatcher("/ListHeberg").forward(request, response);
+								List<Hebergement> hebergementList=hebergementdao.listeHebergement();
+								int res=1;
+								for(int i=0;i<hebergementList.size();i++) {
+									if(newHeberg.equalsIgnoreCase(hebergementList.get(i).getNom_heberg())) {
+										res=2;
+									}
+								}
+								if(res==1) {
+									System.out.println("newHeberg :" + newHeberg);
+									Hebergement hebergement=new Hebergement();
+									hebergement.setNom_heberg(newHeberg);
+									hebergementdao.addHebergement(hebergement);
+									request.getRequestDispatcher("/ListHeberg").forward(request, response);
+								}
+								else {
+									request.setAttribute("Name", "existe déjà");
+									request.getRequestDispatcher("gestion_type_hebergement_Admin.jsp").forward(request, response);
+								}
 							}
 							catch (Exception e) {
 								// TODO: handle exception
@@ -241,11 +254,24 @@ public class ServletAgence extends HttpServlet {
 										if(request.getServletPath().equals("/AddNewTheme")) {
 											try {
 												String newTheme=request.getParameter("newTheme");
-												System.out.println("newTheme :" + newTheme);
-												Voyage_a_themes themes=new Voyage_a_themes();
-												themes.setNom_theme(newTheme);
-												themedao.addTheme(themes);
-												request.getRequestDispatcher("/ListTheme").forward(request, response);
+												List<Voyage_a_themes> vThemes=themedao.listeTheme();
+												int res=1;
+												for(int i=0;i<vThemes.size();i++) {
+													if(newTheme.equalsIgnoreCase(vThemes.get(i).getNom_theme())) {
+														res=2;
+													}
+												}
+												if(res==2) {
+													request.setAttribute("Name", "existe déjà");
+													request.getRequestDispatcher("gestion_themes.jsp").forward(request, response);
+												}
+												else {
+													System.out.println("newTheme :" + newTheme);
+													Voyage_a_themes themes=new Voyage_a_themes();
+													themes.setNom_theme(newTheme);
+													themedao.addTheme(themes);
+													request.getRequestDispatcher("/ListTheme").forward(request, response);
+												}
 											}
 											catch (Exception e) {
 												// TODO: handle exception
@@ -285,11 +311,24 @@ public class ServletAgence extends HttpServlet {
 													if(request.getServletPath().equals("/AddNewType")) {
 														try {
 															String newType=request.getParameter("newType");
-															System.out.println("newTheme :" + newType);
-															Type_de_Voyage type=new Type_de_Voyage();
-															type.setNom_typev(newType);
-															typedao.addTypeVoyage(type);
-															request.getRequestDispatcher("/ListType").forward(request, response);
+															List<Type_de_Voyage> vType=typedao.listeTypeVoyage();
+															int res=1;
+															for(int i=0;i<vType.size();i++) {
+																if(newType.equalsIgnoreCase(vType.get(i).getNom_typev())) {
+																	res=2;
+																}
+															}
+															if(res==2) {
+																request.setAttribute("Name", "existe déjà");
+																request.getRequestDispatcher("gestion_type_voyage.jsp").forward(request, response);
+															}
+															else {
+																System.out.println("newTheme :" + newType);
+																Type_de_Voyage type=new Type_de_Voyage();
+																type.setNom_typev(newType);
+																typedao.addTypeVoyage(type);
+																request.getRequestDispatcher("/ListType").forward(request, response);
+															}
 														}
 														catch (Exception e) {
 															// TODO: handle exception

@@ -92,6 +92,7 @@
 													name="newType" required>
 											</div>
 										</div>
+										<div><p style="color:red;"><c:out value="${Name}"/></p></div>
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
