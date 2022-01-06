@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import metier.Clients;
 import metier.Voyage;
 
 public interface IVoyageDao {
@@ -19,6 +20,7 @@ public interface IVoyageDao {
 	public void updateVoyage(int id,Voyage v);
 	public void deleteVoyage(int id);
 	public List<Voyage> listeVoyageParCircuit(int idCircuit);
-	public List<Voyage> listeVoyageParCircuitExpirer(int idCircuit); 
+	public List<Voyage> listeVoyageParCircuitExpirer(int idCircuit);
+	public List<Clients> listeParticipants(int idVoyage); 
 
 }

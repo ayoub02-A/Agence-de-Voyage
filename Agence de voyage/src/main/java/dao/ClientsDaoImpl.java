@@ -46,7 +46,16 @@ public class ClientsDaoImpl implements IClientsDao{
 	@Override
 	public void deleteClients(int id) {
 		// TODO Auto-generated method stub
-		
+		try {
+			PreparedStatement ps= conn.prepareStatement("DELETE FROM clients WHERE id_client = ?");
+			ps.setInt(1, id);
+			ps.executeUpdate();
+			ps.close();
+			System.out.println("valide");
+		}
+		catch (SQLException e) {
+			 e.printStackTrace();
+		}
 	}
 
 	@Override

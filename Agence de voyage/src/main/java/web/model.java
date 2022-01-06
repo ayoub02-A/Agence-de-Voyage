@@ -5,6 +5,7 @@ public class model {
 	private int idC;
 	private int idV;
 	private int idCV;
+	private int pdfparti;
 	
 	model(){
 		super();
@@ -32,6 +33,14 @@ public class model {
 
 	public void setIdCV(int idCV) {
 		this.idCV = idCV;
+	}
+
+	public int getPdfparti() {
+		return pdfparti;
+	}
+
+	public void setPdfparti(int pdfparti) {
+		this.pdfparti = pdfparti;
 	}
 	
 	

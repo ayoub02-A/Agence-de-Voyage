@@ -35,6 +35,7 @@ import metier.Administrateur;
 import metier.CercuitVoyagePdf;
 import metier.CircuitPdf;
 import metier.Circuit_accompagnes;
+import metier.ClientParticipantPdf;
 import metier.Clients;
 import metier.Hebergement;
 import metier.Voyage_a_themes;
@@ -51,7 +52,7 @@ import web.model;
 		,"/pdfCircuit","/ListVoyage","/AddVoyage","/Details_voyage","/PupdateVoyage","/updateVoyage"
 		,"/deleteVoyage","/listVoyageExpir","/detailsVoyageExpir","/deleteVoyageExpir","/VoyageParDate"
 		,"/VoyageParDest","/VoyageParTheme","/VoyageParType","/VoyageCercuit","/pdfVoyageCercuit"
-		,"/panierVoyage"})
+		,"/panierVoyage","/deleteClient","/listeParticipants","/PdfParticipants"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 maxFileSize = 1024 * 1024 * 10, // 10MB
 maxRequestSize = 1024 * 1024 * 50) // 50MB
@@ -827,7 +828,6 @@ public class ServletAgence extends HttpServlet {
 																																					if(request.getServletPath().equals("/panierVoyage")) {
 																																						try {
 																																							int idClient = Integer.parseInt(request.getParameter("idClient"));
-																																							//model.setIdCV(idCircuit);
 																																							List<Voyage> lvoyage=clientsdao.Panier(idClient);
 																																							List<Voyage> lvoyageN=clientsdao.PanierNon(idClient);
 																																							System.out.println("chuf : "+lvoyage);
@@ -841,6 +841,59 @@ public class ServletAgence extends HttpServlet {
 																																							e.printStackTrace();
 																																						}
 																																					}
+																																					else
+																																						if(request.getServletPath().equals("/deleteClient")){
+																																							try {
+																																								int idClient = Integer.parseInt(request.getParameter("idClient"));
+																																								clientsdao.deleteClients(idClient);
+																																								request.getRequestDispatcher("/listClients").forward(request, response);
+																																							}
+																																							catch(Exception e) {
+																																								response.sendRedirect("page_404.jsp");
+																																								e.printStackTrace();
+																																							}
+																																						}
+																																						else
+																																							if(request.getServletPath().equals("/listeParticipants")) {
+																																								try {
+																																									int idVoyage = Integer.parseInt(request.getParameter("idVoyage"));
+																																									model.setPdfparti(idVoyage);
+																																									Voyage voya=voyagedao.getVoyage(idVoyage);
+																																									int a=voya.getNbrPlace();
+																																									List<Clients> lClients= voyagedao.listeParticipants(idVoyage);
+																																									request.setAttribute("lClients", lClients);
+																																									if(a==0) {
+																																										request.setAttribute("voya", "Liste complète");
+																																									}
+																																									else {
+																																										request.setAttribute("voya", "Le nombre de places restantes : "+a);
+																																									}
+																																									request.getRequestDispatcher("/voyageParticipant.jsp").forward(request, response);
+																																								}
+																																								catch(Exception e) {
+																																									response.sendRedirect("page_404.jsp");
+																																									e.printStackTrace();
+																																								}
+																																							}
+																																							else
+																																								if(request.getServletPath().equals("/PdfParticipants")) {
+																																									try {
+																																										response.setContentType("application/pdf");
+																																										DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+																																										String currentDateTime = dateFormatter.format(new java.util.Date());
+																																										String headerKey = "Content-Disposition";
+																																										String headerValue = "attachment; filename=Liste des participants" + currentDateTime + ".pdf";
+																																										response.setHeader(headerKey, headerValue);
+																																										List<Clients> lClients= voyagedao.listeParticipants(model.getPdfparti());
+																																										ClientParticipantPdf exporter= new ClientParticipantPdf(lClients);
+																																										exporter.export(response);
+																																									}
+																																									catch(Exception e) {
+																																										response.sendRedirect("page_404.jsp");
+																																										e.printStackTrace();
+																																									}
+																																								}
+																																							
 		
 		
 		

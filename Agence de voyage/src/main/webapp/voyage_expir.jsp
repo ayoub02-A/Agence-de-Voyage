@@ -113,7 +113,7 @@
 														<td><a href="detailsVoyageExpir?idVoyage=${lvoyage.getId_voyage() }" 
 															class="btn btn-info btn-xs"><i
 																	class="fa fa-info-circle"></i></a></td>
-														<td><a href="DeleteThemes?idVoyage=${lvoyage.getId_voyage() }" class="btn btn-dark btn-xs"><i
+														<td><a href="listeParticipants?idVoyage=${lvoyage.getId_voyage() }" class="btn btn-dark btn-xs"><i
 																class="fa fa-group"></i></a></td>
 														<td><a href="deleteVoyageExpir?idVoyage=${lvoyage.getId_voyage() }" class="btn btn-danger btn-xs"><i
 																class="fa fa-trash-o"></i></a></td>

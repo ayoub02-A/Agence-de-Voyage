@@ -62,26 +62,10 @@
 					<div class="page-title">
 						<div class="title_left">
 							<h3>
-								Gestion <small>Clients</small>
+								Gestion <small>Participants du voyage</small>
 							</h3>
 						</div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div class="title_right">
-							<div class="col-md-5 col-sm-5   form-group pull-right top_search">
-								<form action="<%=request.getContextPath()%>/ClientParMc" method="post" >
-									<div class="input-group">
-										<input type="text" name="mc" class="form-control"
-											placeholder="Chercher..."> <span
-											class="input-group-btn">
-											<button class="btn btn-secondary" type="submit">Go!</button>
-										</span>
-									</div>
-								</form>
-							</div>
-						</div>
+						
 						
 					</div>
 
@@ -91,7 +75,7 @@
 							<div class="col-md-12">
 								<div class="x_panel">
 									<div class="x_title">
-										<h2>Gestion</h2>
+										<h2>Gestion : (${voya})</h2>
 										<ul class="nav navbar-right panel_toolbox">
 											<li><a class="collapse-link"><i
 													class="fa fa-chevron-up"></i></a></li>
@@ -108,25 +92,18 @@
 													<th style="width: 20%">Prenom</th>
 													<th style="width: 20%">Email</th>
 													<th style="width: 15%%">téléphone</th>
-													<th>Panier</th>
-													<th>Supprimer</th>
-													
 												</tr>
 											</thead>
 											<tbody>
 												
-												<c:forEach items="${clients}" var="clients">
+												<c:forEach items="${lClients}" var="lClients">
 												<c:set var="count" value="${count + 1}" scope="page"/>
 													<tr>
 														<td>${count}</td>
-														<td>${clients.getNom_client()}</td>
-														<td>${clients.getPrenom_client()}</td>
-														<td>${clients.getEmail_client()}</td>
-														<td>${clients.getTel_client()}</td>
-														<td><a href="panierVoyage?idClient=${clients.getId_client()}" class="btn btn-warning btn-xs"><i
-																class="fa fa-shopping-cart"></i></a></td>
-														<td><a href="deleteClient?idClient=${clients.getId_client()}" class="btn btn-danger btn-xs"><i
-																class="fa fa-trash-o"></i></a></td>
+														<td>${lClients.getNom_client()}</td>
+														<td>${lClients.getPrenom_client()}</td>
+														<td>${lClients.getEmail_client()}</td>
+														<td>${lClients.getTel_client()}</td>
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -135,7 +112,8 @@
 										
 									
 									</div>
-									
+									<a href="PdfParticipants" class="btn btn-secondary btn-xs"><i
+																class="fa fa-file-pdf-o"></i></a>
 								</div>
 							</div>
 						</div>

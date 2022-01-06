@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
+import metier.Clients;
 import metier.Voyage;
 
 public class VoyageDaoImpl implements IVoyageDao{
@@ -98,6 +99,7 @@ public class VoyageDaoImpl implements IVoyageDao{
 				v.setDate_depart(rs.getDate("date_depart"));
 				v.setBudget(rs.getFloat("budget"));
 				v.setNbr_participant(rs.getInt("nbr_participant"));
+				v.setNbrPlace(rs.getInt("nbr_participant")-nbrPlace(rs.getInt("id_voyage")));
 				v.setPrix(rs.getFloat("prix"));
 				v.setFk_id_circuit(rs.getInt("fk_id_circuit"));
 				v.setFk_id_typev(rs.getInt("fk_id_typev"));
@@ -447,6 +449,32 @@ public class VoyageDaoImpl implements IVoyageDao{
 			e.printStackTrace();
 		}
 		return voy;
+		
+	}
+
+	@Override
+	public List<Clients> listeParticipants(int idVoyage) {
+		// TODO Auto-generated method stub
+		List<Clients> cls=new ArrayList<Clients>();
+		try {
+			PreparedStatement ps= conn.prepareStatement("select distinct T.* from  clients T, panier B where B.fk_id_voyage = ? and B.fk_id_client = T.id_client and B.voyage_confirme = 1");
+			ps.setInt(1,idVoyage);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Clients c = new Clients();
+				c.setId_client(rs.getInt("id_client"));	
+				c.setNom_client(rs.getString("nom_client"));
+				c.setPrenom_client(rs.getString("prenom_client"));
+				c.setEmail_client(rs.getString("email_client"));
+				c.setTel_client(rs.getString("tel_client"));
+				cls.add(c);	
+				System.out.println("valide");
+			}
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		return cls;
 		
 	}
 	
