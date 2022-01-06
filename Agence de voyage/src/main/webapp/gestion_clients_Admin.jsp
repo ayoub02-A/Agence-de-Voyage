@@ -123,7 +123,7 @@
 														<td>${clients.getPrenom_client()}</td>
 														<td>${clients.getEmail_client()}</td>
 														<td>${clients.getTel_client()}</td>
-														<td><a href="DeleteChercheur?idChercheur=${clients.getId_client()}" class="btn btn-warning btn-xs"><i
+														<td><a href="panierVoyage?idClient=${clients.getId_client()}" class="btn btn-warning btn-xs"><i
 																class="fa fa-shopping-cart"></i></a></td>
 														<td><a href="DeleteChercheur?idChercheur=${clients.getId_client()}" class="btn btn-danger btn-xs"><i
 																class="fa fa-trash-o"></i></a></td>

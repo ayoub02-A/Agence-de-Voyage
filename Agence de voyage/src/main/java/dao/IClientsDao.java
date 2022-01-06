@@ -11,5 +11,6 @@ public interface IClientsDao {
 	public void deleteClients(int id);
 	public List<Clients> listeClients();
 	public List<Voyage> Panier(int id);
+	public List<Voyage> PanierNon(int id);
 
 }

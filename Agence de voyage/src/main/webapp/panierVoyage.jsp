@@ -62,7 +62,7 @@
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Ajouter Voyage</h3>
+							<h3>Voyage Confirmés</h3>
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -123,12 +123,71 @@
 									
 								</div>
 							
-							
+							<div class="page-title">
+						<div class="title_left">
+							<h3>Panier (non-confirmés)</h3>
+						</div>
+					</div>
+					
+					
+					<div class="x_panel">
+									<div class="x_title">
+										<h2>Gestion</h2>
+										<ul class="nav navbar-right panel_toolbox">
+											<li><a class="collapse-link"><i
+													class="fa fa-chevron-up"></i></a></li>
+										</ul>
+										<div class="clearfix"></div>
+									</div>
+									<div class="x_content">
+										<!-- start project list -->
+										<table class="table table-striped projects">
+											<thead>
+												<tr>
+													<th style="width: 5% scope="row">Num</th>
+													<th style="width: 25%">Titree</th>
+													<th style="width: 20%">destination</th>
+													<th style="width: 15%">Date de départ</th>
+													<th style="width: 20%">Duree</th>
+													<th style="width: 15%">Prix</th>
+													
+													
+													
+												</tr>
+											</thead>
+											<tbody>
+												
+												<c:forEach items="${lvoyageN}" var="lvoyage">
+												<c:set var="count" value="${count + 1}" scope="page"/>
+													<tr>
+														<td>${count}</td>
+														<td>${lvoyage.nom_voyage}</td>
+														<td>${lvoyage.getDestination()}</td>
+														<td>${lvoyage.getDate_depart()}</td>
+														<td>${lvoyage.duree}</td>
+														<td>${lvoyage.prix}</td>
+														
+													</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+										<!-- end project list -->
+										
+									
+									</div>
+									
+									
+									
+								</div>
+					
 							
 							
 							
 						</div>
 					</div>
+					
+					
+					
 				</div>
 			</div>
 			<!-- /page content -->

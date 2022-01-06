@@ -78,8 +78,37 @@ public class ClientsDaoImpl implements IClientsDao{
 		// TODO Auto-generated method stub
 		List<Voyage> voy=new ArrayList<Voyage>();
 		try {
-			PreparedStatement ps= conn.prepareStatement("select * from voyage where date_depart >= ?");
-			ps.setDate(1,new java.sql.Date(System.currentTimeMillis()));
+			PreparedStatement ps= conn.prepareStatement("select distinct T.* from  voyage T, panier B where B.fk_id_client = ?  and B.fk_id_voyage = T.id_voyage and B.voyage_confirme = 1  and T.date_depart >= ? ");
+			ps.setInt(1,id);
+			ps.setDate(2,new java.sql.Date(System.currentTimeMillis()));
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Voyage v = new Voyage();
+				v.setId_voyage(rs.getInt("id_voyage"));	
+				v.setNom_voyage(rs.getString("nom_voyage"));	
+				v.setDestination(rs.getString("destination"));
+				v.setDuree(rs.getString("duree"));
+				v.setDate_depart(rs.getDate("date_depart"));
+				v.setPrix(rs.getInt("prix"));
+				voy.add(v);	
+				System.out.println("valide");
+			}
+			ps.close();
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		return voy;
+	}
+
+	@Override
+	public List<Voyage> PanierNon(int id) {
+		// TODO Auto-generated method stub
+		List<Voyage> voy=new ArrayList<Voyage>();
+		try {
+			PreparedStatement ps= conn.prepareStatement("select distinct T.* from  voyage T, panier B where B.fk_id_client = ?  and B.fk_id_voyage = T.id_voyage and B.voyage_confirme = 0  and T.date_depart >= ? ");
+			ps.setInt(1,id);
+			ps.setDate(2,new java.sql.Date(System.currentTimeMillis()));
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Voyage v = new Voyage();

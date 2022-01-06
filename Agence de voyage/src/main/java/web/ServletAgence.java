@@ -826,15 +826,15 @@ public class ServletAgence extends HttpServlet {
 																																				else
 																																					if(request.getServletPath().equals("/panierVoyage")) {
 																																						try {
-																																							int idCircuit = Integer.parseInt(request.getParameter("idCircuit"));
-																																							model.setIdCV(idCircuit);
-																																							List<Voyage> lvoyage=voyagedao.listeVoyageParCircuit(idCircuit);
-																																							List<Voyage> lvoyageex=voyagedao.listeVoyageParCircuitExpirer(idCircuit);
+																																							int idClient = Integer.parseInt(request.getParameter("idClient"));
+																																							//model.setIdCV(idCircuit);
+																																							List<Voyage> lvoyage=clientsdao.Panier(idClient);
+																																							List<Voyage> lvoyageN=clientsdao.PanierNon(idClient);
 																																							System.out.println("chuf : "+lvoyage);
-																																							System.out.println("chuf : "+lvoyageex);
+																																							System.out.println("chuf : "+lvoyageN);
 																																							request.setAttribute("lvoyage", lvoyage);
-																																							request.setAttribute("lvoyageex", lvoyageex);
-																																							request.getRequestDispatcher("/voyageCercuit.jsp").forward(request, response);
+																																							request.setAttribute("lvoyageN", lvoyageN);
+																																							request.getRequestDispatcher("/panierVoyage.jsp").forward(request, response);
 																																						}
 																																						catch(Exception e) {
 																																							response.sendRedirect("page_404.jsp");
