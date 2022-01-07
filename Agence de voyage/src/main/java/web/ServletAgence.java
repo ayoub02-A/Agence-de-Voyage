@@ -52,7 +52,7 @@ import web.model;
 		,"/pdfCircuit","/ListVoyage","/AddVoyage","/Details_voyage","/PupdateVoyage","/updateVoyage"
 		,"/deleteVoyage","/listVoyageExpir","/detailsVoyageExpir","/deleteVoyageExpir","/VoyageParDate"
 		,"/VoyageParDest","/VoyageParTheme","/VoyageParType","/VoyageCercuit","/pdfVoyageCercuit"
-		,"/panierVoyage","/deleteClient","/listeParticipants","/PdfParticipants"})
+		,"/panierVoyage","/deleteClient","/listeParticipants","/PdfParticipants","/Home"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 maxFileSize = 1024 * 1024 * 10, // 10MB
 maxRequestSize = 1024 * 1024 * 50) // 50MB
@@ -122,7 +122,7 @@ public class ServletAgence extends HttpServlet {
 					System.out.println("session created");
 					session.setAttribute("nom","Administrateur");
 					System.out.println("session ok");
-					response.sendRedirect("indexAdmin.jsp");
+					request.getRequestDispatcher("/Home").forward(request, response);
 				}
 				else {
 					request.setAttribute("msg1", "email ou mot de passe incorrect ");
@@ -932,6 +932,30 @@ public class ServletAgence extends HttpServlet {
 																																										e.printStackTrace();
 																																									}
 																																								}
+																																								else
+																																									if(request.getServletPath().equals("/Home")) {
+																																										try {
+																																											int nbrClient=voyagedao.nbrClient();
+																																											int nbrVoyage=voyagedao.nbrVoyage();
+																																											int nbrCircuit=voyagedao.nbrCircuit();
+																																											int nbrTheme=voyagedao.nbrTheme();
+																																											int nbrType=voyagedao.nbrType();
+																																											int nbrHeberg=voyagedao.nbrHeberg();
+																																											
+																																											request.setAttribute("nbrClient", nbrClient);
+																																											request.setAttribute("nbrVoyage", nbrVoyage);
+																																											request.setAttribute("nbrCircuit", nbrCircuit);
+																																											request.setAttribute("nbrTheme", nbrTheme);
+																																											request.setAttribute("nbrType", nbrType);
+																																											request.setAttribute("nbrHeberg", nbrHeberg);
+																																											
+																																											request.getRequestDispatcher("/indexAdmin.jsp").forward(request, response);
+																																										}
+																																										catch(Exception e) {
+																																											response.sendRedirect("page_404.jsp");
+																																											e.printStackTrace();
+																																										}
+																																									}
 																																							
 		
 		

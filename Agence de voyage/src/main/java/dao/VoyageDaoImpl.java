@@ -477,6 +477,114 @@ public class VoyageDaoImpl implements IVoyageDao{
 		return cls;
 		
 	}
+
+	@Override
+	public int nbrClient() {
+		// TODO Auto-generated method stub
+		int nbr=0;
+		try {
+			PreparedStatement ps= conn.prepareStatement("SELECT COUNT(id_client) FROM clients");
+			
+			ResultSet rs = ps.executeQuery();
+			if  (rs.next()) {
+				nbr=rs.getInt("COUNT(id_client)");
+			}
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		return nbr;
+	}
+
+	@Override
+	public int nbrVoyage() {
+		// TODO Auto-generated method stub
+		int nbr=0;
+		try {
+			PreparedStatement ps= conn.prepareStatement("SELECT COUNT(id_voyage) FROM voyage");
+			
+			ResultSet rs = ps.executeQuery();
+			if  (rs.next()) {
+				nbr=rs.getInt("COUNT(id_voyage)");
+			}
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		return nbr;
+	}
+
+	@Override
+	public int nbrCircuit() {
+		// TODO Auto-generated method stub
+		int nbr=0;
+		try {
+			PreparedStatement ps= conn.prepareStatement("SELECT COUNT(id_circuit) FROM circuit_accompagnes");
+			
+			ResultSet rs = ps.executeQuery();
+			if  (rs.next()) {
+				nbr=rs.getInt("COUNT(id_circuit)");
+			}
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		return nbr;
+	}
+
+	@Override
+	public int nbrTheme() {
+		// TODO Auto-generated method stub
+		int nbr=0;
+		try {
+			PreparedStatement ps= conn.prepareStatement("SELECT COUNT(id_vtheme) FROM voyage_a_themes");
+			
+			ResultSet rs = ps.executeQuery();
+			if  (rs.next()) {
+				nbr=rs.getInt("COUNT(id_vtheme)");
+			}
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		return nbr;
+	}
+
+	@Override
+	public int nbrType() {
+		// TODO Auto-generated method stub
+		int nbr=0;
+		try {
+			PreparedStatement ps= conn.prepareStatement("SELECT COUNT(id_typev) FROM type_de_voyage");
+			
+			ResultSet rs = ps.executeQuery();
+			if  (rs.next()) {
+				nbr=rs.getInt("COUNT(id_typev)");
+			}
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		return nbr;
+	}
+
+	@Override
+	public int nbrHeberg() {
+		// TODO Auto-generated method stub
+		int nbr=0;
+		try {
+			PreparedStatement ps= conn.prepareStatement("SELECT COUNT(id_heberg) FROM hebergement");
+			
+			ResultSet rs = ps.executeQuery();
+			if  (rs.next()) {
+				nbr=rs.getInt("COUNT(id_heberg)");
+			}
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		return nbr;
+	}
 	
 
 }

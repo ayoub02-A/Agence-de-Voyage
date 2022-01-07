@@ -22,5 +22,11 @@ public interface IVoyageDao {
 	public List<Voyage> listeVoyageParCircuit(int idCircuit);
 	public List<Voyage> listeVoyageParCircuitExpirer(int idCircuit);
 	public List<Clients> listeParticipants(int idVoyage); 
+	public int nbrClient();
+	public int nbrVoyage();
+	public int nbrCircuit();
+	public int nbrTheme();
+	public int nbrType();
+	public int nbrHeberg();
 
 }

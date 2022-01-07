@@ -81,33 +81,33 @@
           <div class="tile_count">
             <div class="col-md-2 col-sm-4  tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total Clients</span>
-              <div class="count">2500</div>
+              <div class="count">${nbrClient}</div>
               
             </div>
             
             <div class="col-md-2 col-sm-4  tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total Voyages</span>
-              <div class="count green">2,500</div>
+              <div class="count green">${nbrVoyage}</div>
               
             </div>
             <div class="col-md-2 col-sm-4  tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total Circuits</span>
-              <div class="count">2500</div>
+              <div class="count">${nbrCircuit}</div>
               
             </div>
             <div class="col-md-2 col-sm-4  tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total Themes</span>
-              <div class="count green">2,500</div>
+              <div class="count green">${nbrTheme}</div>
               
             </div>
             <div class="col-md-2 col-sm-4  tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total Types</span>
-              <div class="count">2500</div>
+              <div class="count">${nbrType}</div>
               
             </div>
             <div class="col-md-2 col-sm-4  tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total Hebergements</span>
-              <div class="count green">2,500</div>
+              <div class="count green">${nbrHeberg}</div>
               
             </div>
             <div class="col-md-2 col-sm-4  tile_stats_count"></div>

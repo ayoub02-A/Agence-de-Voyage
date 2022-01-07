@@ -22,7 +22,7 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a href="indexAdmin.jsp"><i class="fa fa-home"></i> Home </a></li>
+                  <li><a href="Home"><i class="fa fa-home"></i> Home </a></li>
                   <li><a href="listClients"><i class="fa fa-edit"></i> Gestion de clients </a></li>
                   <li><a><i class="fa fa-edit"></i> Gestion de Voyage <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
