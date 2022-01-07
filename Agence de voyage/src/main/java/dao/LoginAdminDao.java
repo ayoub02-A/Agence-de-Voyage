@@ -1,5 +1,8 @@
 package dao;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,9 +21,9 @@ public class LoginAdminDao {
         Class.forName("com.mysql.jdbc.Driver");
         try {
             PreparedStatement preparedStatement = conn.prepareStatement("select * from administrateur where email_admin = ? and mdp_admin = ? "); 
+            String mdp =  getMd5(a.getMdp_admin());
             preparedStatement.setString(1,a.getEmail_admin());
-            preparedStatement.setString(2,a.getMdp_admin());
-
+            preparedStatement.setString(2,mdp);
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()) {
@@ -52,5 +55,25 @@ public class LoginAdminDao {
             }
         }
     }
+	
+	public String getMd5(String input){
+		try {
+			// Static getInstance method is called with hashing MD5
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			//  of an input digest() return array of byte
+			byte[] messageDigest = md.digest(input.getBytes());
+			// Convert byte array into signum representation
+			BigInteger no = new BigInteger(1, messageDigest);
+			// Convert message digest into hex value
+			String hashtext = no.toString(16);
+			while (hashtext.length() < 32) {
+				hashtext = "0" + hashtext;
+			}
+			return hashtext;
+		} 
+		catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	
 }
