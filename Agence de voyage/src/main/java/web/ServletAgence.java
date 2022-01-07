@@ -58,7 +58,7 @@ maxFileSize = 1024 * 1024 * 10, // 10MB
 maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class ServletAgence extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	private LoginAdminDao loginAdmin;
 	private ClientsDaoImpl clientsdao;
 	private HebergementDaoImpl hebergementdao;
@@ -67,25 +67,25 @@ public class ServletAgence extends HttpServlet {
 	private CircuitAccompagnesAdminDaoImpl circuitdao;
 	private model model;
 	private VoyageDaoImpl voyagedao;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServletAgence() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    
-    public void init() {
-    	loginAdmin=new LoginAdminDao();
-    	clientsdao=new ClientsDaoImpl();
-    	hebergementdao=new HebergementDaoImpl();
-    	themedao=new ThemeVoyageDaoImpl();
-    	typedao=new TypeVoyageDaoImpl();
-    	circuitdao=new CircuitAccompagnesAdminDaoImpl();
-    	model=new model();
-    	voyagedao=new VoyageDaoImpl();
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ServletAgence() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public void init() {
+		loginAdmin=new LoginAdminDao();
+		clientsdao=new ClientsDaoImpl();
+		hebergementdao=new HebergementDaoImpl();
+		themedao=new ThemeVoyageDaoImpl();
+		typedao=new TypeVoyageDaoImpl();
+		circuitdao=new CircuitAccompagnesAdminDaoImpl();
+		model=new model();
+		voyagedao=new VoyageDaoImpl();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -100,23 +100,23 @@ public class ServletAgence extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 		System.out.print("Path : " + request.getServletPath());
 		System.out.println();
-		
+
 		// login admin 
-		
+
 		if(request.getServletPath().equals("/loginAdmin")) {
-			
-			String email_admin = request.getParameter("email_admin");
-			String mdp_admin = request.getParameter("mdp_admin");
-			System.out.println("email_admin :" + email_admin);
-			System.out.println("mdp_admin :" + mdp_admin);
-			Administrateur loginA= new Administrateur();
-			loginA.setEmail_admin(email_admin);
-			loginA.setMdp_admin(mdp_admin);
-			
 			try {
+				String email_admin = request.getParameter("email_admin");
+				String mdp_admin = request.getParameter("mdp_admin");
+				System.out.println("email_admin :" + email_admin);
+				System.out.println("mdp_admin :" + mdp_admin);
+				Administrateur loginA= new Administrateur();
+				loginA.setEmail_admin(email_admin);
+				loginA.setMdp_admin(mdp_admin);
+
+
 				if(loginAdmin.login(loginA)) {
 					HttpSession session = request.getSession();
 					System.out.println("session created");
@@ -382,19 +382,19 @@ public class ServletAgence extends HttpServlet {
 																		System.out.println("telephone :"+telephone);
 																		System.out.println("langues :"+langues);
 																		System.out.println("descrip :"+descrip);
-																		
+
 																		Circuit_accompagnes circuit=new Circuit_accompagnes();
-																		
+
 																		circuit.setNom_circuit(nom);
 																		circuit.setEmail_circuit(email);
 																		circuit.setTel_circuit(telephone);
 																		circuit.setLangues_circuit(langues);
 																		circuit.setPhoto_circuit(photoInputStream);
 																		circuit.setDescription_circuit(descrip);
-																		
+
 																		circuitdao.addCircuit(circuit);
 																		request.getRequestDispatcher("/ListCircuit").forward(request, response);
-																		}
+																	}
 																	catch (Exception e) {
 																		// TODO: handle exception
 																		response.sendRedirect("page_404.jsp");
@@ -450,21 +450,21 @@ public class ServletAgence extends HttpServlet {
 																						String telephone=request.getParameter("telephone");
 																						String langues=request.getParameter("langues");
 																						String descrip=request.getParameter("descrip");
-																						
+
 																						System.out.println("nom :"+nom);
 																						System.out.println("email :"+email);
 																						System.out.println("telephone :"+telephone);
 																						System.out.println("langues :"+langues);
 																						System.out.println("descrip :"+descrip);
-																						
+
 																						Circuit_accompagnes circuit=new Circuit_accompagnes();
-																						
+
 																						circuit.setNom_circuit(nom);
 																						circuit.setEmail_circuit(email);
 																						circuit.setTel_circuit(telephone);
 																						circuit.setLangues_circuit(langues);
 																						circuit.setDescription_circuit(descrip);
-																						
+
 																						circuitdao.updateCircuit(model.getIdC(), circuit);
 																						request.getRequestDispatcher("/ListCircuit").forward(request, response);
 																					}
@@ -496,7 +496,7 @@ public class ServletAgence extends HttpServlet {
 																						if(request.getServletPath().equals("/ListVoyage")) {
 																							try {
 																								List<String> Destination= voyagedao.listeVoyagDest();
-																								
+
 																								List<Circuit_accompagnes> circuitA=circuitdao.listeCircuitAvailable();
 																								List<Type_de_Voyage> vType=typedao.listeTypeVoyage();
 																								List<Voyage_a_themes> vThemes=themedao.listeTheme();
@@ -506,14 +506,14 @@ public class ServletAgence extends HttpServlet {
 																								request.setAttribute("hebergement", hebergement);
 																								request.setAttribute("vThemes", vThemes);
 																								request.setAttribute("Destination", Destination);
-																								
+
 																								List<Voyage> lvoyage=voyagedao.listeVoyage();
 																								System.out.println("chuf : "+lvoyage);
-																								
+
 																								request.setAttribute("lvoyage", lvoyage);
-																								
-																								
-																								
+
+
+
 																								request.getRequestDispatcher("/AddVoyageAdmin.jsp").forward(request, response);
 																							}
 																							catch(Exception e) {
@@ -541,8 +541,8 @@ public class ServletAgence extends HttpServlet {
 																									if (photo != null) {
 																										photoInputStream = photo.getInputStream();
 																									}
-																									
-																									
+
+
 																									System.out.println("titre :"+titre);
 																									System.out.println("destination :"+destination);
 																									System.out.println("Duree :"+Duree);
@@ -553,10 +553,10 @@ public class ServletAgence extends HttpServlet {
 																									System.out.println("idType :"+idType);
 																									System.out.println("idhebergement :"+idhebergement);
 																									System.out.println("idTheme :"+idTheme);
-																									
-																									
+
+
 																									Voyage v=new Voyage();
-																									
+
 																									v.setNom_voyage(titre);
 																									v.setDestination(destination);
 																									v.setDuree(Duree);
@@ -569,7 +569,7 @@ public class ServletAgence extends HttpServlet {
 																									v.setFk_id_heberg(idhebergement);
 																									v.setFk_id_vtheme(idTheme);
 																									v.setPhoto_voyage(photoInputStream);
-																									
+
 																									voyagedao.addVoyage(v);
 																									request.getRequestDispatcher("/ListVoyage").forward(request, response);
 																								}
@@ -586,7 +586,7 @@ public class ServletAgence extends HttpServlet {
 																										String nomTheme= themedao.getTheme(voyagedao.getVoyage(idVoyage).getFk_id_vtheme()).getNom_theme();
 																										String nomHeberg= hebergementdao.getHeberg(voyagedao.getVoyage(idVoyage).getFk_id_heberg()).getNom_heberg();
 																										String nomType= typedao.getType(voyagedao.getVoyage(idVoyage).getFk_id_typev()).getNom_typev();
-																										
+
 																										request.setAttribute("nomCircuit", nomCircuit);
 																										request.setAttribute("nomTheme", nomTheme);
 																										request.setAttribute("nomHeberg", nomHeberg);
@@ -624,23 +624,23 @@ public class ServletAgence extends HttpServlet {
 																												int number=Integer.parseInt(request.getParameter("number"));
 																												float prix=Float.parseFloat(request.getParameter("prix"));
 																												int idCircuit=Integer.parseInt(request.getParameter("Circuit"));
-																												
+
 																												System.out.println("Duree :"+Duree);
 																												System.out.println("date :"+date);
 																												System.out.println("Budget :"+Budget);
 																												System.out.println("number :"+number);
 																												System.out.println("prix :"+prix);
 																												System.out.println("idCircuit :"+idCircuit);
-																												
+
 																												Voyage v=new Voyage();
-																												
+
 																												v.setDuree(Duree);
 																												v.setDate_depart(date);
 																												v.setBudget(Budget);
 																												v.setNbr_participant(number);
 																												v.setPrix(prix);
 																												v.setFk_id_circuit(idCircuit);
-																												
+
 																												voyagedao.updateVoyage(model.getIdV(), v);
 																												request.getRequestDispatcher("/ListVoyage").forward(request, response);
 																											}
@@ -685,7 +685,7 @@ public class ServletAgence extends HttpServlet {
 																															String nomTheme= themedao.getTheme(voyagedao.getVoyage(idVoyage).getFk_id_vtheme()).getNom_theme();
 																															String nomHeberg= hebergementdao.getHeberg(voyagedao.getVoyage(idVoyage).getFk_id_heberg()).getNom_heberg();
 																															String nomType= typedao.getType(voyagedao.getVoyage(idVoyage).getFk_id_typev()).getNom_typev();
-																															
+
 																															request.setAttribute("nomCircuit", nomCircuit);
 																															request.setAttribute("nomTheme", nomTheme);
 																															request.setAttribute("nomHeberg", nomHeberg);
@@ -718,7 +718,7 @@ public class ServletAgence extends HttpServlet {
 																																try {
 																																	String mc=request.getParameter("mc");	
 																																	System.out.println("MC : "+mc);
-																																	
+
 																																	List<String> Destination= voyagedao.listeVoyagDest();
 																																	List<Circuit_accompagnes> circuitA=circuitdao.listeCircuit();
 																																	List<Type_de_Voyage> vType=typedao.listeTypeVoyage();
@@ -729,11 +729,11 @@ public class ServletAgence extends HttpServlet {
 																																	request.setAttribute("hebergement", hebergement);
 																																	request.setAttribute("vThemes", vThemes);
 																																	request.setAttribute("Destination", Destination);
-																																	
+
 																																	List<Voyage> lvoyage=voyagedao.listeVoyageParDate(mc);
 																																	request.setAttribute("lvoyage", lvoyage);
 																																	System.out.println("chuf : "+lvoyage);
-																																	
+
 																																	request.getRequestDispatcher("AddVoyageAdmin.jsp").forward(request, response);
 																																}
 																																catch (Exception e) {
@@ -747,7 +747,7 @@ public class ServletAgence extends HttpServlet {
 																																	try {
 																																		String mc=request.getParameter("Dest");	
 																																		System.out.println("MC : "+mc);
-																																		
+
 																																		List<String> Destination= voyagedao.listeVoyagDest();
 																																		List<Circuit_accompagnes> circuitA=circuitdao.listeCircuit();
 																																		List<Type_de_Voyage> vType=typedao.listeTypeVoyage();
@@ -758,7 +758,7 @@ public class ServletAgence extends HttpServlet {
 																																		request.setAttribute("hebergement", hebergement);
 																																		request.setAttribute("vThemes", vThemes);
 																																		request.setAttribute("Destination", Destination);
-																																		
+
 																																		List<Voyage> lvoyage=voyagedao.listeVoyageParDEst(mc);
 																																		request.setAttribute("lvoyage", lvoyage);
 																																		System.out.println("chuf : "+lvoyage);
@@ -776,7 +776,7 @@ public class ServletAgence extends HttpServlet {
 																																			//
 																																			String mc=request.getParameter("Theme");	
 																																			System.out.println("MC : "+mc);
-																																			
+
 																																			List<String> Destination= voyagedao.listeVoyagDest();
 																																			List<Circuit_accompagnes> circuitA=circuitdao.listeCircuit();
 																																			List<Type_de_Voyage> vType=typedao.listeTypeVoyage();
@@ -787,7 +787,7 @@ public class ServletAgence extends HttpServlet {
 																																			request.setAttribute("hebergement", hebergement);
 																																			request.setAttribute("vThemes", vThemes);
 																																			request.setAttribute("Destination", Destination);
-																																			
+
 																																			List<Voyage> lvoyage=voyagedao.listeVoyageParTheme(mc);
 																																			request.setAttribute("lvoyage", lvoyage);
 																																			System.out.println("chuf : "+lvoyage);
@@ -804,7 +804,7 @@ public class ServletAgence extends HttpServlet {
 																																			try {
 																																				String mc=request.getParameter("Type");	
 																																				System.out.println("MC : "+mc);
-																																				
+
 																																				List<String> Destination= voyagedao.listeVoyagDest();
 																																				List<Circuit_accompagnes> circuitA=circuitdao.listeCircuit();
 																																				List<Type_de_Voyage> vType=typedao.listeTypeVoyage();
@@ -815,7 +815,7 @@ public class ServletAgence extends HttpServlet {
 																																				request.setAttribute("hebergement", hebergement);
 																																				request.setAttribute("vThemes", vThemes);
 																																				request.setAttribute("Destination", Destination);
-																																				
+
 																																				List<Voyage> lvoyage=voyagedao.listeVoyageParType(mc);
 																																				request.setAttribute("lvoyage", lvoyage);
 																																				System.out.println("chuf : "+lvoyage);
@@ -941,14 +941,14 @@ public class ServletAgence extends HttpServlet {
 																																											int nbrTheme=voyagedao.nbrTheme();
 																																											int nbrType=voyagedao.nbrType();
 																																											int nbrHeberg=voyagedao.nbrHeberg();
-																																											
+
 																																											request.setAttribute("nbrClient", nbrClient);
 																																											request.setAttribute("nbrVoyage", nbrVoyage);
 																																											request.setAttribute("nbrCircuit", nbrCircuit);
 																																											request.setAttribute("nbrTheme", nbrTheme);
 																																											request.setAttribute("nbrType", nbrType);
 																																											request.setAttribute("nbrHeberg", nbrHeberg);
-																																											
+
 																																											request.getRequestDispatcher("/indexAdmin.jsp").forward(request, response);
 																																										}
 																																										catch(Exception e) {
@@ -956,35 +956,35 @@ public class ServletAgence extends HttpServlet {
 																																											e.printStackTrace();
 																																										}
 																																									}
-																																							
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	}
 
 }
