@@ -62,26 +62,10 @@
 					<div class="page-title">
 						<div class="title_left">
 							<h3>
-								Gestion <small>Clients</small>
+								Gestion <small>Message</small>
 							</h3>
 						</div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div class="title_right">
-							<div class="col-md-5 col-sm-5   form-group pull-right top_search">
-								<form action="<%=request.getContextPath()%>/ClientParMc" method="post" >
-									<div class="input-group">
-										<input type="text" name="mc" class="form-control"
-											placeholder="Chercher..."> <span
-											class="input-group-btn">
-											<button class="btn btn-secondary" type="submit">Go!</button>
-										</span>
-									</div>
-								</form>
-							</div>
-						</div>
+						
 						
 					</div>
 
@@ -104,28 +88,24 @@
 											<thead>
 												<tr>
 													<th style="width: 5% scope="row">Num</th>
-													<th style="width: 20%">Nom</th>
-													<th style="width: 20%">Prenom</th>
+													<th style="width: 25%">Nom complet</th>
 													<th style="width: 20%">Email</th>
-													<th style="width: 15%%">téléphone</th>
-													<th>Panier</th>
+													<th>Message</th>
 													<th>Supprimer</th>
 													
 												</tr>
 											</thead>
 											<tbody>
 												
-												<c:forEach items="${clients}" var="clients">
+												<c:forEach items="${contact}" var="contact">
 												<c:set var="count" value="${count + 1}" scope="page"/>
 													<tr>
 														<td>${count}</td>
-														<td>${clients.getNom_client()}</td>
-														<td>${clients.getPrenom_client()}</td>
-														<td>${clients.getEmail_client()}</td>
-														<td>${clients.getTel_client()}</td>
-														<td><a href="panierVoyage?idClient=${clients.getId_client()}" class="btn btn-warning btn-xs"><i
-																class="fa fa-shopping-cart"></i></a></td>
-														<td><a href="deleteClient?idClient=${clients.getId_client()}" class="btn btn-danger btn-xs"><i
+														<td>${contact.getNom()} ${contact.getPrenom()}</td>
+														<td>${contact.getEmail()}</td>
+														<td><a href="ShowMessage?idMessage=${contact.getId_contact()}" class="btn btn-warning btn-xs"><i
+																class="fa fa-comments-o"></i></a></td>
+														<td><a href="deleteMessage?idMessage=${contact.getId_contact()}" class="btn btn-danger btn-xs"><i
 																class="fa fa-trash-o"></i></a></td>
 													</tr>
 												</c:forEach>

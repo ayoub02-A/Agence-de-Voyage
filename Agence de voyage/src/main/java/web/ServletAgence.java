@@ -26,6 +26,7 @@ import java.util.*;
 
 import dao.CircuitAccompagnesAdminDaoImpl;
 import dao.ClientsDaoImpl;
+import dao.ContactDaoImpl;
 import dao.LoginAdminDao;
 import dao.ThemeVoyageDaoImpl;
 import dao.TypeVoyageDaoImpl;
@@ -37,6 +38,7 @@ import metier.CircuitPdf;
 import metier.Circuit_accompagnes;
 import metier.ClientParticipantPdf;
 import metier.Clients;
+import metier.Contact;
 import metier.Hebergement;
 import metier.Voyage_a_themes;
 import metier.Type_de_Voyage;
@@ -52,7 +54,8 @@ import web.model;
 		,"/pdfCircuit","/ListVoyage","/AddVoyage","/Details_voyage","/PupdateVoyage","/updateVoyage"
 		,"/deleteVoyage","/listVoyageExpir","/detailsVoyageExpir","/deleteVoyageExpir","/VoyageParDate"
 		,"/VoyageParDest","/VoyageParTheme","/VoyageParType","/VoyageCercuit","/pdfVoyageCercuit"
-		,"/panierVoyage","/deleteClient","/listeParticipants","/PdfParticipants","/Home"})
+		,"/panierVoyage","/deleteClient","/listeParticipants","/PdfParticipants","/Home","/ShowMessage"
+		,"/deleteMessage","/ListMessageNonVue","/MessageVue","/deleteMessageVue"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 maxFileSize = 1024 * 1024 * 10, // 10MB
 maxRequestSize = 1024 * 1024 * 50) // 50MB
@@ -67,6 +70,7 @@ public class ServletAgence extends HttpServlet {
 	private CircuitAccompagnesAdminDaoImpl circuitdao;
 	private model model;
 	private VoyageDaoImpl voyagedao;
+	private ContactDaoImpl contactdao;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -85,6 +89,7 @@ public class ServletAgence extends HttpServlet {
 		circuitdao=new CircuitAccompagnesAdminDaoImpl();
 		model=new model();
 		voyagedao=new VoyageDaoImpl();
+		contactdao=new ContactDaoImpl();
 	}
 
 	/**
@@ -933,7 +938,7 @@ public class ServletAgence extends HttpServlet {
 																																									}
 																																								}
 																																								else
-																																									if(request.getServletPath().equals("/Home")) {
+																																									if(request.getServletPath().equals("/Home")){
 																																										try {
 																																											int nbrClient=voyagedao.nbrClient();
 																																											int nbrVoyage=voyagedao.nbrVoyage();
@@ -941,14 +946,20 @@ public class ServletAgence extends HttpServlet {
 																																											int nbrTheme=voyagedao.nbrTheme();
 																																											int nbrType=voyagedao.nbrType();
 																																											int nbrHeberg=voyagedao.nbrHeberg();
-
+																																											int message =contactdao.nbrMessage();
 																																											request.setAttribute("nbrClient", nbrClient);
 																																											request.setAttribute("nbrVoyage", nbrVoyage);
 																																											request.setAttribute("nbrCircuit", nbrCircuit);
 																																											request.setAttribute("nbrTheme", nbrTheme);
 																																											request.setAttribute("nbrType", nbrType);
 																																											request.setAttribute("nbrHeberg", nbrHeberg);
-
+																																											request.setAttribute("message", message);
+																																											System.out
+																																													.println(message);
+																																											List<Contact> Lcontacl= contactdao.Nonvue();
+																																											System.out
+																																													.println(Lcontacl);
+																																											request.setAttribute("Lcontacl", Lcontacl);
 																																											request.getRequestDispatcher("/indexAdmin.jsp").forward(request, response);
 																																										}
 																																										catch(Exception e) {
@@ -956,6 +967,71 @@ public class ServletAgence extends HttpServlet {
 																																											e.printStackTrace();
 																																										}
 																																									}
+																																									else
+																																										if(request.getServletPath().equals("/ShowMessage")) {
+																																											try {
+																																												int idMessage = Integer.parseInt(request.getParameter("idMessage"));
+																																												Contact conta=contactdao.getMessage(idMessage);
+																																												contactdao.setVue(idMessage);
+																																												request.setAttribute("conta", conta);
+																																												request.getRequestDispatcher("/showMessage.jsp").forward(request, response);
+																																												
+																																											}
+																																											catch(Exception e) {
+																																												response.sendRedirect("page_404.jsp");
+																																												e.printStackTrace();
+																																											}
+																																										}
+																																										else
+																																											if(request.getServletPath().equals("/deleteMessage")) {
+																																												try {
+																																													int idMessage = Integer.parseInt(request.getParameter("idMessage"));
+																																													contactdao.removeMessage(idMessage);
+																																													request.getRequestDispatcher("/ListMessageNonVue").forward(request, response);
+																																													
+																																												}
+																																												catch(Exception e) {
+																																													response.sendRedirect("page_404.jsp");
+																																													e.printStackTrace();
+																																												}
+																																											}
+																																											else
+																																												if(request.getServletPath().equals("/ListMessageNonVue")) {
+																																													try {
+																																														List<Contact> contact=contactdao.Nonvue();
+																																														request.setAttribute("contact", contact);
+																																														request.getRequestDispatcher("/messageNonVue.jsp").forward(request, response);
+																																													}
+																																													catch(Exception e) {
+																																														response.sendRedirect("page_404.jsp");
+																																														e.printStackTrace();
+																																													}
+																																												}
+																																												else
+																																													if(request.getServletPath().equals("/MessageVue")) {
+																																														try {
+																																															List<Contact> contact=contactdao.Vue();
+																																															request.setAttribute("contact", contact);
+																																															request.getRequestDispatcher("/messageVue.jsp").forward(request, response);
+																																														}
+																																														catch(Exception e) {
+																																															response.sendRedirect("page_404.jsp");
+																																															e.printStackTrace();
+																																														}
+																																													}
+																																													else
+																																														if(request.getServletPath().equals("/deleteMessageVue")) {
+																																															try {
+																																																int idMessage = Integer.parseInt(request.getParameter("idMessage"));
+																																																contactdao.removeMessage(idMessage);
+																																																request.getRequestDispatcher("/MessageVue").forward(request, response);
+																																																
+																																															}
+																																															catch(Exception e) {
+																																																response.sendRedirect("page_404.jsp");
+																																																e.printStackTrace();
+																																															}
+																																														}
 
 
 

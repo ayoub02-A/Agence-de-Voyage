@@ -61,7 +61,7 @@
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Circuit accompagés</h3>
+							<h3>Message</h3>
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -74,57 +74,39 @@
 								</div>
 								<div class="x_content">
 									<br />
-									<form action="<%=request.getContextPath()%>/updateCircuit" method="post" enctype="multipart/form-data">
+									
+										
+										
+										
 										
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nom complet :<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" id="last-name" name="nom" required="required" class="form-control" value="${circuitA.getNom_circuit()}">
+												<label id="last-name" class="form-control">${conta.getNom()} ${conta.getPrenom()}</label>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
                                             <label class="col-form-label col-md-3 col-sm-3  label-align">email :<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
-                                                <input class="form-control" name="email" class='email' required="required" type="email" value="${circuitA.getEmail_circuit()}"/></div>
+                                                <label id="last-name" class="form-control">${conta.getEmail()}</label>
+                                            </div>
                                         </div>
 										
-										<div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Telephone<span class=""></span></label>
-                                            <div class="col-md-6 col-sm-6">
-                                                <input class="form-control" type="text" class='tel' name="telephone" data-validate-length-range="8,30" value="${circuitA.getTel_circuit()}"/></div>
-                                        </div>
-                                        
                                         <div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">langues :<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Message :<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" id="last-name" name="langues" required="required" class="form-control" value="${circuitA.getLangues_circuit()}">
+												<textarea readonly id="message" required="required" class="form-control" name="descrip" 
+										  >${conta.getMessage()}</textarea>
 											</div>
 										</div>
-										
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Déscription :<span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<textarea id="message" required="required" class="form-control" name="descrip" data-parsley-trigger="keyup"
-										 data-parsley-minlength="5" data-parsley-maxlength="10000000000000000000000" 
-										 data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
-										  data-parsley-validation-threshold="10">${circuitA.getDescription_circuit()}</textarea>
-											</div>
-										</div>
-										
+                                        
                                         
 										
-										<div class="ln_solid"></div>
-										<div class="item form-group">
-											<div class="col-md-6 col-sm-6 offset-md-3">
-												<button class="btn btn-primary" type="reset">Réinitialiser</button>
-												<button type="submit" class="btn btn-success">Modifier</button>
-											</div>
-										</div>
-									</form>
+										
+										
 								</div>
 							</div>
 						</div>

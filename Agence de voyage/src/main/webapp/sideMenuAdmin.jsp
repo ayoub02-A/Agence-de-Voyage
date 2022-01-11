@@ -23,6 +23,12 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li><a href="Home"><i class="fa fa-home"></i> Home </a></li>
+                  <li><a><i class="fa fa-edit"></i> Messages <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                      <li><a href="ListMessageNonVue"> Message non vue </a></li>
+                      <li><a href="MessageVue"> Message vue </a></li>
+                    </ul>
+                  </li>
                   <li><a href="listClients"><i class="fa fa-edit"></i> Gestion de clients </a></li>
                   <li><a><i class="fa fa-edit"></i> Gestion de Voyage <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -36,6 +42,7 @@
                   <li><a href="ListHeberg"><i class="fa fa-edit"></i> Type d'hebergements </a></li>
                   <li><a href="ListTheme"><i class="fa fa-edit"></i> Theme de Voyages </a></li>
                   <li><a href="ListType"><i class="fa fa-edit"></i> Type de Voyages </a></li>
+                  
                   
                   
                   

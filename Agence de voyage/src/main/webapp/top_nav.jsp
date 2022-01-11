@@ -1,3 +1,4 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="top_nav">
           <div class="nav_menu">
               <div class="nav toggle">
@@ -13,6 +14,13 @@
                     <a class="dropdown-item"  href="logoutAdmin"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                   </div>
                 </li>
+                
+                
+                
+                
+                
+                
+                
               </ul>
             </nav>
           </div>
