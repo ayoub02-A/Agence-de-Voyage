@@ -585,6 +585,66 @@ public class VoyageDaoImpl implements IVoyageDao{
 		}
 		return nbr;
 	}
+
+	@Override
+	public List<Voyage> liste_Voyage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Voyage> liste_Voyage_TypeVoyage(int fk_idtypev) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Voyage> liste_VoyagePanier(int idClient) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Voyage> chercherVoyage(Voyage v) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Voyage> liste_Voyage_Theme(int fk_idthemev) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Voyage> liste_Voyage_Hebergement(int fk_idheberv) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Voyage> liste_Voyage(int id_Voyage) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Voyage rejoindreVoyage(int id_voyage, int id_Client) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Voyage> liste_VoyageConfirmer(int idClient) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Voyage> chercherVoyage(Voyage v, String budget, String type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

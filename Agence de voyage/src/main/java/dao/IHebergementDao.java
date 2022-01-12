@@ -11,4 +11,6 @@ public interface IHebergementDao {
 	public void deleteHebergement(int id);
 	public List<Hebergement> listeHebergement();
 	public Hebergement getHeberg(int id);
+	public List<Hebergement> list_Hebergement() ;
+	public String ObtenirNomHeberg(int fk_idhebergement);
 }

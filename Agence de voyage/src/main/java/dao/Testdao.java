@@ -17,11 +17,11 @@ import java.security.NoSuchAlgorithmException;
 public class Testdao {
 	public static void main(String[] args) throws ParseException {
 		// TODO Auto-generated method stub
-		Connection conn=SingletonConnection.getConnection();
+		//Connection conn=SingletonConnection.getConnection();
 		//System.out.println(new java.sql.Date(System.currentTimeMillis()));
 
 
-		
+		Connection cnx =DAOFACTORY.getConnection();
 
 
 		String ss = "ayoub";

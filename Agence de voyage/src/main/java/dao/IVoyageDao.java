@@ -28,5 +28,21 @@ public interface IVoyageDao {
 	public int nbrTheme();
 	public int nbrType();
 	public int nbrHeberg();
+	
+	
+	
+	public List<Voyage> liste_Voyage();
+	public List<Voyage> liste_Voyage_TypeVoyage(int fk_idtypev);
+	public List<Voyage> liste_VoyagePanier(int idClient);
+	
+	public List<Voyage> chercherVoyage(Voyage v) ;
+	public List<Voyage> liste_Voyage_Theme(int fk_idthemev);
+	public List<Voyage> liste_Voyage_Hebergement(int fk_idheberv);
+	public List<Voyage> liste_Voyage(int id_Voyage);
+	//Voyage getVoyage(int id_voyage);
+	Voyage rejoindreVoyage(int id_voyage, int id_Client);
+	List<Voyage> liste_VoyageConfirmer(int idClient);
+	public List<Voyage> chercherVoyage(Voyage v, String budget,String type) ;
+	
 
 }

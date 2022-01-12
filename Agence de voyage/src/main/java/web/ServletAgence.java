@@ -5,6 +5,7 @@ import java.io.IOException;
 
 
 
+
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -32,6 +33,22 @@ import dao.ThemeVoyageDaoImpl;
 import dao.TypeVoyageDaoImpl;
 import dao.VoyageDaoImpl;
 import dao.HebergementDaoImpl;
+import dao.ICircuitAccompDAO;
+import dao.IClientDAO;
+
+import dao.IHebergementDao;
+import dao.IPanierDAO;
+import dao.ITheme_de_VoyageDAO;
+import dao.IType_de_VoyageDAO;
+
+import dao.IVoyageDao;
+import dao.ImpCircuitAccompDAO;
+import dao.ImpClientDAO;
+import dao.ImpHebergementDAO;
+import dao.ImpPanierDAO;
+import dao.ImpTheme_de_VoyageDAO;
+import dao.ImpType_de_VoyageDAO;
+import dao.ImpVoyageDAO;
 import metier.Administrateur;
 import metier.CercuitVoyagePdf;
 import metier.CircuitPdf;
@@ -48,14 +65,25 @@ import web.model;
 /**
  * Servlet implementation class ServletAgence
  */
-@WebServlet(urlPatterns = {"/loginAdmin","/logoutAdmin","/listClients","/ClientParMc","/AddNewheberg","/ListHeberg"
+@WebServlet(urlPatterns = {"/ServletAgence","/loginAdmin","/logoutAdmin","/listClients","/ClientParMc","/AddNewheberg","/ListHeberg"
 		,"/DeleteHeberg","/ListTheme","/AddNewTheme","/DeleteThemes","/ListType","/AddNewType","/DeleteType",
 		"/ListCircuit","/AddCircuit","/DeleteCircuit","/Details_circuit","/PupdateCircuit","/updateCircuit"
 		,"/pdfCircuit","/ListVoyage","/AddVoyage","/Details_voyage","/PupdateVoyage","/updateVoyage"
 		,"/deleteVoyage","/listVoyageExpir","/detailsVoyageExpir","/deleteVoyageExpir","/VoyageParDate"
 		,"/VoyageParDest","/VoyageParTheme","/VoyageParType","/VoyageCercuit","/pdfVoyageCercuit"
 		,"/panierVoyage","/deleteClient","/listeParticipants","/PdfParticipants","/Home","/ShowMessage"
-		,"/deleteMessage","/ListMessageNonVue","/MessageVue","/deleteMessageVue"})
+		,"/deleteMessage","/ListMessageNonVue","/MessageVue","/deleteMessageVue",
+
+
+
+		"/logout","/login.php","/inscription.php","/listFormulaireDeRecherche",
+		"/AllTrip","/RechercheParPlusieursMotsCles","/listFormulaireDeRecherche1","/AllTripVisiteur",
+		"/AllTypeVoyage","/AllThemeVoyage","/AllHebergement","/ProfilClient","/ModifierClient","/updateClient",
+		"/ClientInfo","/AllVoyageTypeVoyage","/AllVoyageTheme","/AllVoyagehebergement",
+		"/AllDetailsTrip","/ajouterAuPanier","/VoyageDuPanier","/AllDetailsTripAfterAjout",
+		"/AllDetailsTripPanier","/RejoindreVoyage","/AllDetailsTripapresRejoin",
+		"/supprimerVPanier","/contact"
+})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 maxFileSize = 1024 * 1024 * 10, // 10MB
 maxRequestSize = 1024 * 1024 * 50) // 50MB
@@ -71,6 +99,18 @@ public class ServletAgence extends HttpServlet {
 	private model model;
 	private VoyageDaoImpl voyagedao;
 	private ContactDaoImpl contactdao;
+
+
+
+	model md=new model();
+	IClientDAO umetier = new ImpClientDAO();
+	IType_de_VoyageDAO typevmetier = new ImpType_de_VoyageDAO(); 
+	IVoyageDao vmetier = new ImpVoyageDAO();   
+	ITheme_de_VoyageDAO themevmetier = new ImpTheme_de_VoyageDAO();
+	IHebergementDao hebergvmetier = new ImpHebergementDAO();
+	IClientDAO clientMetier = new ImpClientDAO();
+	ICircuitAccompDAO circuitMetier = new ImpCircuitAccompDAO();
+	IPanierDAO panierMetier = new ImpPanierDAO();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -105,7 +145,7 @@ public class ServletAgence extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		String path= request.getServletPath();
 		System.out.print("Path : " + request.getServletPath());
 		System.out.println();
 
@@ -955,10 +995,10 @@ public class ServletAgence extends HttpServlet {
 																																											request.setAttribute("nbrHeberg", nbrHeberg);
 																																											request.setAttribute("message", message);
 																																											System.out
-																																													.println(message);
+																																											.println(message);
 																																											List<Contact> Lcontacl= contactdao.Nonvue();
 																																											System.out
-																																													.println(Lcontacl);
+																																											.println(Lcontacl);
 																																											request.setAttribute("Lcontacl", Lcontacl);
 																																											request.getRequestDispatcher("/indexAdmin.jsp").forward(request, response);
 																																										}
@@ -975,7 +1015,7 @@ public class ServletAgence extends HttpServlet {
 																																												contactdao.setVue(idMessage);
 																																												request.setAttribute("conta", conta);
 																																												request.getRequestDispatcher("/showMessage.jsp").forward(request, response);
-																																												
+
 																																											}
 																																											catch(Exception e) {
 																																												response.sendRedirect("page_404.jsp");
@@ -988,7 +1028,7 @@ public class ServletAgence extends HttpServlet {
 																																													int idMessage = Integer.parseInt(request.getParameter("idMessage"));
 																																													contactdao.removeMessage(idMessage);
 																																													request.getRequestDispatcher("/ListMessageNonVue").forward(request, response);
-																																													
+
 																																												}
 																																												catch(Exception e) {
 																																													response.sendRedirect("page_404.jsp");
@@ -1025,13 +1065,554 @@ public class ServletAgence extends HttpServlet {
 																																																int idMessage = Integer.parseInt(request.getParameter("idMessage"));
 																																																contactdao.removeMessage(idMessage);
 																																																request.getRequestDispatcher("/MessageVue").forward(request, response);
-																																																
+
 																																															}
 																																															catch(Exception e) {
 																																																response.sendRedirect("page_404.jsp");
 																																																e.printStackTrace();
 																																															}
 																																														}
+
+
+
+																																															///////////////////
+
+
+
+																																														else
+																																															if(path.equals("/logout")) {
+																																																HttpSession session =request.getSession(); 
+																																																session.removeAttribute("client");
+																																																session.invalidate();
+																																																//response.sendRedirect("/Agence de voyage/listFormulaireDeRecherche1");
+																																																request.getRequestDispatcher("/listFormulaireDeRecherche1").forward(request, response);
+
+
+																																															}
+																																															else
+
+																																																//////////-----------------------------------------LOGIN--------------------------------------------------------------------------////		
+
+
+																																																if (path.equals("/login.php")) {
+																																																	System.out.println(4);
+																																																	String email = request.getParameter("email");
+																																																	String mdp = request.getParameter("mdp");
+																																																	System.out.println(email+ "-" +mdp);
+																																																	if(umetier.login(email, mdp)){
+																																																		HttpSession session =request.getSession();
+																																																		System.out.println("session created");
+
+																																																		session.setAttribute("client", umetier.getClients(email,mdp));
+
+
+
+																																																		Clients u = umetier.getClients(email, mdp);
+
+																																																		session.setAttribute("Nom", u.getNom_client());
+																																																		session.setAttribute("Prénom", u.getPrenom_client());
+																																																		md.setIdSession(u.getId_client());
+
+																																																		System.out.println("C'est l id client "+(u.getId_client()));
+																																																		//response.sendRedirect("/Agence de voyage/listFormulaireDeRecherche");
+																																																		request.getRequestDispatcher("/listFormulaireDeRecherche").forward(request, response);
+
+																																																	}
+																																																	else {
+																																																		HttpSession session =request.getSession(); 
+																																																		session.setAttribute("client", null);
+																																																		int testA = 1 ; 
+																																																		String erreurA = "Mot de passe ou nom d'utilisateur incorrect ! ";
+																																																		session.setAttribute("testA", testA);
+																																																		session.setAttribute("eA", erreurA);
+																																																		request.setAttribute("eA", erreurA);
+																																																		System.out.println(erreurA);
+																																																		request.getRequestDispatcher("/Login.jsp").forward(request, response);
+
+																																																	}
+
+																																																}
+
+
+		//////////-------------------------------------Register--------------------------------------------------------------------------////		
+
+																																																else
+																																																	if(path.equals("/inscription.php"))
+																																																	{	
+																																																		String registernom = request.getParameter("registernom");
+																																																		String registerprenom = request.getParameter("registerprenom");
+																																																		String registerEmail = request.getParameter("registerEmail");
+																																																		String registerPassword = request.getParameter("registerPassword");
+																																																		String registerPhone = request.getParameter("registerphone");
+
+																																																		Clients cl = new Clients();
+
+																																																		cl.setNom_client(registernom);
+																																																		cl.setPrenom_client(registerprenom);
+																																																		cl.setEmail_client(registerEmail);
+																																																		cl.setMdp_client(registerPassword);
+																																																		cl.setTel_client(registerPhone);
+																																																		System.out.println("path : " + path);
+
+
+
+																																																		umetier.Inscription(cl);
+																																																		System.out.println("inscription Done !");
+																																																		this.getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
+
+
+																																																	}
+
+																																																	else
+																																																		if (path.equals("/listFormulaireDeRecherche"))
+																																																		{ 
+
+																																																			request.setAttribute("Type_de_Voyage", typevmetier.liste_Type_de_Voyage1());
+																																																			request.setAttribute("Destination", vmetier.liste_Voyage());
+																																																			System.out.println("la destination est listée");
+																																																			request.setAttribute("duree", vmetier.liste_Voyage());
+																																																			System.out.println("la durée est listée");
+																																																			request.setAttribute("Voyage", vmetier.liste_Voyage());
+																																																			System.out.println(vmetier.liste_Voyage());
+																																																			System.out.println("ewa hade bayna");
+
+																																																			request.getRequestDispatcher("/index.jsp").forward(request, response); 
+
+																																																		}
+																																																		else
+																																																			if (path.equals("/listFormulaireDeRecherche1"))
+																																																			{ 
+																																																				try {
+																																																					request.setAttribute("Type_de_Voyage", typevmetier.liste_Type_de_Voyage());
+																																																					request.setAttribute("Destination", vmetier.liste_Voyage());
+																																																					System.out.println("la destination est listée");
+																																																					request.setAttribute("duree", vmetier.liste_Voyage());
+																																																					System.out.println("la durée est listée");
+																																																					request.setAttribute("Voyage", vmetier.liste_Voyage());
+																																																					System.out.println(vmetier.liste_Voyage());
+																																																					System.out.println("chuf");
+
+																																																					request.getRequestDispatcher("/indexvisit.jsp").forward(request, response); 
+																																																				}
+																																																				catch(Exception e) {
+																																																					response.sendRedirect("404.jsp");
+																																																					e.printStackTrace();
+																																																				}
+
+																																																			}
+																																																			else
+																																																				if (path.equals("/AllTrip"))
+																																																				{ 
+																																																					request.setAttribute("Voyage", vmetier.liste_Voyage());
+																																																					System.out.println("la destination est listée");
+																																																					System.out.println("la durée est listée");
+																																																					System.out.println(vmetier.liste_Voyage());
+
+																																																					request.getRequestDispatcher("/menu.jsp").forward(request, response); 
+
+																																																				}
+
+
+																																																				else
+
+																																																					if (path.equals("/RechercheParPlusieursMotsCles")) {
+
+																																																						String destination = request.getParameter("destination");
+																																																						String duree = request.getParameter("duree");
+																																																						System.out.println(1);
+																																																						String budget = request.getParameter("budget");
+																																																						System.out.println(2);
+																																																						Date date  = Date.valueOf(request.getParameter("date"));
+																																																						System.out.println(request.getParameter("date"));
+																																																						System.out.println(3);
+																																																						System.out.println("chuf : " +request.getParameter("Type"));
+																																																						//System.out.println("dd :"+request.getParameter("Type").);
+
+																																																						String fk_idtypev = request.getParameter("Type");
+																																																						System.out.println("ayih : "+fk_idtypev);
+
+																																																						//md.setCpt_id_typev(fk_idtypev);
+																																																						Voyage cl = new Voyage();
+																																																						cl.setDestination(destination);
+																																																						cl.setDuree(duree);
+																																																						//cl.setBudget(budget);
+																																																						cl.setDate_depart(date);
+																																																						//cl.setFk_id_typev(fk_idtypev);
+																																																						//typevmetier.ObtenirNomTypeV(md.getCpt_id_typev())
+
+																																																						System.out.println(cl);
+																																																						List<Voyage> voyage_Chercher=vmetier.chercherVoyage(cl,budget,fk_idtypev);
+																																																						System.out.println("list : "+voyage_Chercher);
+																																																						System.out.println("gg : "+voyage_Chercher.isEmpty());
+																																																						if (voyage_Chercher.isEmpty()==true) {
+																																																							request.setAttribute("VoyageNot", "No trips with your choices");
+																																																						}
+																																																						else {
+																																																							request.setAttribute("Voyage", voyage_Chercher);
+																																																						}
+																																																						request.getRequestDispatcher("/index.jsp").forward(request, response);
+
+
+																																																					}
+																																																					else
+																																																						if (path.equals("/AllTripVisiteur"))
+																																																						{ 
+																																																							request.setAttribute("Voyage", vmetier.liste_Voyage());
+																																																							System.out.println("la destination est listée");
+																																																							System.out.println("la durée est listée");
+																																																							System.out.println(vmetier.liste_Voyage());
+																																																							request.setAttribute("Type_de_Voyage", typevmetier.liste_Type_de_Voyage());
+																																																							request.setAttribute("Destination", vmetier.liste_Voyage());
+																																																							System.out.println("la destination est listée");
+																																																							request.setAttribute("duree", vmetier.liste_Voyage());
+																																																							System.out.println("la durée est listée");
+																																																							request.setAttribute("Voyage", vmetier.liste_Voyage());
+																																																							System.out.println(vmetier.liste_Voyage());
+																																																							System.out.println("chuf");
+
+																																																							request.getRequestDispatcher("/menuVisiteur.jsp").forward(request, response); 
+
+																																																						}
+																																																						else
+																																																							if (path.equals("/AllTypeVoyage"))
+																																																							{ 
+																																																								request.setAttribute("TypeVoyage", typevmetier.liste_Type_de_Voyage());
+																																																								System.out.println("type est listé");
+																																																								request.getRequestDispatcher("/TypeVoyage.jsp").forward(request, response); 
+
+																																																							}
+
+																																																							else
+																																																								if (path.equals("/AllThemeVoyage"))
+																																																								{ 
+																																																									request.setAttribute("ThemeVoyage", themevmetier.list_Themes_de_Voyage());
+																																																									System.out.println("theme est listé");
+																																																									request.getRequestDispatcher("/ThemeVoyage.jsp").forward(request, response); 
+
+																																																								}
+																																																								else
+																																																									if (path.equals("/AllHebergement"))
+																																																									{ 
+																																																										request.setAttribute("Hebergement", hebergvmetier.list_Hebergement());
+																																																										System.out.println("theme est listé");
+																																																										request.getRequestDispatcher("/Hebergement.jsp").forward(request, response); 
+
+																																																									}
+																																																									else
+																																																										if(path.equals("/ProfilClient"))
+																																																										{
+																																																											int idclient = Integer.parseInt(request.getParameter("idClient"));
+																																																											md.setCptUser(idclient);
+
+																																																											request.setAttribute("ad", clientMetier.getClient(idclient));
+																																																											request.setAttribute("Voyage", vmetier.liste_VoyageConfirmer(idclient));
+																																																											System.out.println(clientMetier.getClient(idclient));
+																																																											System.out.println("profil affiché");
+																																																											request.getRequestDispatcher("/ProfilClient.jsp").forward(request, response);
+
+																																																										}
+
+																																																										else
+																																																											if (request.getServletPath().equals("/updateClient")) {
+
+																																																												List<Clients> cl =clientMetier.getClient(md.getIdSession());
+
+																																																												System.out.println("idUser :"+md.getCptUser());
+
+																																																												request.setAttribute("cl",cl);
+																																																												request.getRequestDispatcher("/ModifierClient.jsp").forward(request, response);
+																																																											}
+
+
+
+																																																											else
+																																																												if(request.getServletPath().equals("/ModifierClient")){
+																																																													Clients u = new Clients();
+																																																													System.out.println(400);
+																																																													System.out.println(request.getParameter("nom"));
+																																																													u.setNom_client(request.getParameter("nom"));
+																																																													u.setPrenom_client(request.getParameter("prenom"));
+																																																													u.setEmail_client(request.getParameter("email"));
+																																																													u.setTel_client(request.getParameter("tel"));
+																																																													System.out.println(md.getCptUser());
+																																																													umetier.modifierClientProfil(md.getIdSession(),u);
+																																																													request.getRequestDispatcher("/ClientInfo").forward(request, response);
+
+																																																												}
+																																																												else
+																																																													if (path.equals("/ClientInfo"))
+																																																													{ 
+																																																														request.setAttribute("ad", clientMetier.getClient(md.getIdSession()));
+																																																														System.out.println(900);
+
+																																																														this.getServletContext().getRequestDispatcher("/ProfilClient.jsp").forward(request, response);
+
+																																																													}
+
+																																																													else
+																																																														if (path.equals("/AllVoyageTypeVoyage"))
+																																																														{ 
+
+																																																															int idType = Integer.parseInt(request.getParameter("IdType"));
+																																																															md.setCptTypev(idType);
+
+																																																															request.setAttribute("TypeVoyage", vmetier.liste_Voyage_TypeVoyage(idType));
+																																																															if (vmetier.liste_Voyage_TypeVoyage(idType).isEmpty()==true) {
+																																																																request.setAttribute("VoyagenotExist", "pas de Voyage pour ce type ! ");
+																																																															}
+																																																															System.out.println(vmetier.liste_Voyage_TypeVoyage(idType));
+																																																															System.out.println("type est listé");
+
+																																																															request.getRequestDispatcher("/VoyageTypeV.jsp").forward(request, response); 
+
+																																																														}
+
+																																																														else
+																																																															if (path.equals("/AllVoyageTheme"))
+																																																															{ 
+
+																																																																int idTheme = Integer.parseInt(request.getParameter("IdTheme"));
+																																																																md.setCptThemev(idTheme);
+
+																																																																if (vmetier.liste_Voyage_Theme(idTheme).isEmpty()==true) {
+																																																																	request.setAttribute("VoyagenotExist1", "pas de Voyage pour ce theme ! ");
+																																																																}
+																																																																else {
+																																																																	request.setAttribute("TypeVoyage", vmetier.liste_Voyage_Theme(idTheme));
+																																																																	System.out.println(vmetier.liste_Voyage_Theme(idTheme));
+																																																																	System.out.println("theme est listé");
+																																																																}
+
+
+																																																																request.getRequestDispatcher("/VoyageThemev.jsp").forward(request, response); 
+
+																																																															}
+
+
+																																																															else
+																																																																if (path.equals("/AllVoyagehebergement"))
+																																																																{  
+																																																																	int IdHeber = Integer.parseInt(request.getParameter("IdHeber"));
+																																																																	md.setCptheber(IdHeber);
+
+																																																																	if (vmetier.liste_Voyage_Hebergement(IdHeber).isEmpty()==true) {
+																																																																		request.setAttribute("VoyagenotExist3", "pas de Voyage pour cet hebergement ! ");
+																																																																	}
+																																																																	else {
+																																																																		request.setAttribute("TypeVoyage", vmetier.liste_Voyage_Hebergement(IdHeber));
+																																																																		System.out.println(vmetier.liste_Voyage_Hebergement(IdHeber));
+																																																																		System.out.println("hebergement est listé");
+																																																																	}
+
+																																																																	request.getRequestDispatcher("/VoyageHebergement.jsp").forward(request, response); 
+
+																																																																}
+
+																																																																else
+																																																																	if (path.equals("/AllDetailsTrip"))
+																																																																	{ 
+																																																																		int Id_Voyage = Integer.parseInt(request.getParameter("Id_Voyage"));
+																																																																		md.setCptidv(Id_Voyage);
+																																																																		request.setAttribute("Voyage", vmetier.liste_Voyage(Id_Voyage));
+																																																																		System.out.println("ana huna");
+																																																																		System.out.println(vmetier.liste_Voyage(Id_Voyage));
+																																																																		request.setAttribute("NomType", typevmetier);
+																																																																		request.setAttribute("NomTheme", themevmetier);
+																																																																		request.setAttribute("NomHeber", hebergvmetier);
+																																																																		request.setAttribute("NomCircuit", circuitMetier);
+
+																																																																		switch(typevmetier.ObtenirNomTypeV(vmetier.getVoyage(Id_Voyage).getFk_id_typev()))
+																																																																		{
+
+																																																																		case "en couple":
+																																																																			request.setAttribute("Remarque", "*Vous Pouvez emmener un binôme");
+																																																																			break;
+																																																																		case "en groupe":
+																																																																			request.setAttribute("Remarque", "*Vous Pouvez emmener un ensemble de personne");
+																																																																			break;
+																																																																		case "en famille":
+																																																																			request.setAttribute("Remarque", "*Vous Pouvez emmener votre famille");
+																																																																			break;
+																																																																		case "individuel":
+																																																																			request.setAttribute("Remarque", "*Vous Venez Seul");
+																																																																			break;
+																																																																		default:
+																																																																			request.setAttribute("Remarque", "*C'est ouvert pour n'importe quel nombre de personne vous apportez");
+
+																																																																		}
+																																																																		request.getRequestDispatcher("/DetailsVoyage.jsp").forward(request, response); 
+
+																																																																	}
+
+
+																																																																	else 
+																																																																		if (path.equals("/VoyageDuPanier")) {
+																																																																			request.setAttribute("Voyage",vmetier.liste_VoyagePanier(md.getIdSession()));
+																																																																			System.out.println(5);
+																																																																			this.getServletContext().getRequestDispatcher("/Panier.jsp").forward(request, response);
+																																																																		}
+
+																																																																		else 
+																																																																			if (path.equals("/ajouterAuPanier")) {
+
+
+																																																																				int Id_Voyage = Integer.parseInt(request.getParameter("Id_Voyage"));
+																																																																				System.out.println(Id_Voyage);
+																																																																				System.out.println( md.getCptUser());
+																																																																				panierMetier.ajouterVAuPanier(md.getIdSession(),Id_Voyage);
+
+																																																																				System.out.println(5);
+
+																																																																				//response.sendRedirect("/Agence de voyage/VoyageDuPanier");
+																																																																				request.getRequestDispatcher("/VoyageDuPanier").forward(request, response);
+																																																																			}
+
+
+																																																																			else
+																																																																				if (path.equals("/AllDetailsTripAfterAjout"))
+																																																																				{ 
+																																																																					int Id_Voyage = Integer.parseInt(request.getParameter("Id_Voyage"));
+																																																																					md.setCptidv(Id_Voyage);
+																																																																					request.setAttribute("Voyage", vmetier.liste_Voyage(Id_Voyage));
+																																																																					System.out.println("ana huna");
+																																																																					System.out.println(vmetier.liste_Voyage(Id_Voyage));
+																																																																					request.setAttribute("NomType", typevmetier);
+																																																																					request.setAttribute("NomTheme", themevmetier);
+																																																																					request.setAttribute("NomHeber", hebergvmetier);
+																																																																					request.setAttribute("NomCircuit", circuitMetier);
+
+																																																																					switch(typevmetier.ObtenirNomTypeV(vmetier.getVoyage(Id_Voyage).getFk_id_typev()))
+																																																																					{
+
+																																																																					case "en couple":
+																																																																						request.setAttribute("Remarque", "*Vous Pouvez emmener un binôme");
+																																																																						break;
+																																																																					case "en groupe":
+																																																																						request.setAttribute("Remarque", "*Vous Pouvez emmener maximum 5 personnes");
+																																																																						break;
+																																																																					case "en famille":
+																																																																						request.setAttribute("Remarque", "*Vous Pouvez emmener votre famille maximum 4 personnes");
+																																																																						break;
+																																																																					case "individuel":
+																																																																						request.setAttribute("Remarque", "*Vous Venez Seul");
+																																																																						break;
+																																																																					default:
+																																																																						request.setAttribute("Remarque", "*C'est ouvert pour n'importe quel nombre de personne vous apportez");
+
+																																																																					}
+																																																																					request.getRequestDispatcher("/DetailsVoyageApresAjout.jsp").forward(request, response); 
+
+																																																																				}
+																																																																				else
+																																																																					if (path.equals("/AllDetailsTripPanier"))
+																																																																					{ 
+																																																																						int Id_Voyage = Integer.parseInt(request.getParameter("Id_Voyage"));
+																																																																						md.setCptidv(Id_Voyage);
+																																																																						request.setAttribute("Voyage", vmetier.liste_Voyage(Id_Voyage));
+																																																																						System.out.println("ana huna");
+																																																																						System.out.println(vmetier.liste_Voyage(Id_Voyage));
+																																																																						request.setAttribute("NomType", typevmetier);
+																																																																						request.setAttribute("NomTheme", themevmetier);
+																																																																						request.setAttribute("NomHeber", hebergvmetier);
+																																																																						request.setAttribute("NomCircuit", circuitMetier);
+
+																																																																						switch(typevmetier.ObtenirNomTypeV(vmetier.getVoyage(Id_Voyage).getFk_id_typev()))
+																																																																						{
+
+																																																																						case "en couple":
+																																																																							request.setAttribute("Remarque", "*Vous Pouvez emmener un binôme");
+																																																																							break;
+																																																																						case "en groupe":
+																																																																							request.setAttribute("Remarque", "*Vous Pouvez emmener maximum 5 personnes");
+																																																																							break;
+																																																																						case "en famille":
+																																																																							request.setAttribute("Remarque", "*Vous Pouvez emmener votre famille maximum 4 personnes");
+																																																																							break;
+																																																																						case "individuel":
+																																																																							request.setAttribute("Remarque", "*Vous Venez Seul");
+																																																																							break;
+																																																																						default:
+																																																																							request.setAttribute("Remarque", "*C'est ouvert pour n'importe quel nombre de personne vous apportez");
+
+																																																																						}
+																																																																						request.getRequestDispatcher("/DetailsVoyagePanier.jsp").forward(request, response); 
+
+																																																																					}
+																																																																					else 
+																																																																						if (path.equals("/RejoindreVoyage")) {
+
+
+																																																																							int Id_Voyage = Integer.parseInt(request.getParameter("Id_Voyage"));
+																																																																							System.out.println("id voyage"+Id_Voyage);
+																																																																							System.out.println("id user"+ md.getCptUser());
+																																																																							vmetier.rejoindreVoyage(md.getIdSession(),Id_Voyage);
+
+																																																																							//System.out.println(5);
+
+																																																																							//response.sendRedirect("/Agence de voyage/ProfilClient");
+																																																																							request.getRequestDispatcher("/ProfilClient").forward(request, response);
+																																																																						}
+																																																																						else
+																																																																							if (path.equals("/AllDetailsTripapresRejoin"))
+																																																																							{ 
+																																																																								int Id_Voyage = Integer.parseInt(request.getParameter("Id_Voyage"));
+																																																																								md.setCptidv(Id_Voyage);
+																																																																								request.setAttribute("Voyage", vmetier.liste_Voyage(Id_Voyage));
+																																																																								System.out.println("ana huna");
+																																																																								System.out.println(vmetier.liste_Voyage(Id_Voyage));
+																																																																								request.setAttribute("NomType", typevmetier);
+																																																																								request.setAttribute("NomTheme", themevmetier);
+																																																																								request.setAttribute("NomHeber", hebergvmetier);
+																																																																								request.setAttribute("NomCircuit", circuitMetier);
+
+																																																																								switch(typevmetier.ObtenirNomTypeV(vmetier.getVoyage(Id_Voyage).getFk_id_typev()))
+																																																																								{
+
+																																																																								case "en couple":
+																																																																									request.setAttribute("Remarque", "*Vous Pouvez emmener un binôme");
+																																																																									break;
+																																																																								case "en groupe":
+																																																																									request.setAttribute("Remarque", "*Vous Pouvez emmener maximum 5 personnes");
+																																																																									break;
+																																																																								case "en famille":
+																																																																									request.setAttribute("Remarque", "*Vous Pouvez emmener votre famille maximum 4 personnes");
+																																																																									break;
+																																																																								case "individuel":
+																																																																									request.setAttribute("Remarque", "*Vous Venez Seul");
+																																																																									break;
+																																																																								default:
+																																																																									request.setAttribute("Remarque", "*C'est ouvert pour n'importe quel nombre de personne vous apportez");
+
+																																																																								}
+																																																																								request.getRequestDispatcher("/DetailsVoyageApresRejoint.jsp").forward(request, response); 
+
+																																																																							}
+																																																																							else
+																																																																								if (path.equals("/supprimerVPanier")) {
+																																																																									int Id_Voyage = Integer.parseInt(request.getParameter("Id_Voyage"));
+																																																																									panierMetier.SupprimerDuPanier(md.getIdSession(),Id_Voyage);
+																																																																									request.setAttribute("i", 1);
+																																																																									this.getServletContext().getRequestDispatcher("/PanierClient.jsp").forward(request, response);
+																																																																								}
+																																																																								else
+																																																																									if(path.equals("/contact")) {
+																																																																										try {
+																																																																											String name= request.getParameter("name");
+																																																																											String Laname= request.getParameter("Laname");
+																																																																											String email= request.getParameter("email");
+																																																																											String message= request.getParameter("message");
+																																																																											umetier.Contact(name, Laname, email, message);
+																																																																											request.setAttribute("message", "your message has been sent");
+																																																																											request.getRequestDispatcher("/contact.jsp").forward(request, response);
+
+																																																																										}
+																																																																										catch (Exception e) {
+																																																																											// TODO: handle exception
+																																																																											e.printStackTrace();
+																																																																										}
+
+																																																																									}
+
 
 
 

@@ -89,6 +89,18 @@ public class HebergementDaoImpl implements IHebergementDao{
 		return h;
 		
 	}
+
+	@Override
+	public List<Hebergement> list_Hebergement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String ObtenirNomHeberg(int fk_idhebergement) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }
