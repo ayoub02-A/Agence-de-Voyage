@@ -45,7 +45,7 @@
               
               <div>
                 <Button type="submit" class="btn btn-default submit">Log in</Button>
-                <a class="reset_pass" href="#">home</a>
+                <a class="reset_pass" href="home.jsp">home</a>
               </div>
 
               <div class="clearfix"></div>
