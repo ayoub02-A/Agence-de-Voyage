@@ -1075,7 +1075,7 @@ public class ServletAgence extends HttpServlet {
 
 
 
-																																															///////////////////
+		///////////////////
 
 
 
@@ -1096,42 +1096,42 @@ public class ServletAgence extends HttpServlet {
 
 																																																if (path.equals("/login.php")) {
 																																																	try {
-																																																	
-																																																	System.out.println(4);
-																																																	String email = request.getParameter("email");
-																																																	String mdp = request.getParameter("mdp");
-																																																	System.out.println(email+ "-" +mdp);
-																																																	if(umetier.login(email, mdp)){
-																																																		HttpSession session =request.getSession();
-																																																		System.out.println("session created");
 
-																																																		session.setAttribute("client", umetier.getClients(email,mdp));
+																																																		System.out.println(4);
+																																																		String email = request.getParameter("email");
+																																																		String mdp = request.getParameter("mdp");
+																																																		System.out.println(email+ "-" +mdp);
+																																																		if(umetier.login(email, mdp)){
+																																																			HttpSession session =request.getSession();
+																																																			System.out.println("session created");
+
+																																																			session.setAttribute("client", umetier.getClients(email,mdp));
 
 
 
-																																																		Clients u = umetier.getClients(email, mdp);
+																																																			Clients u = umetier.getClients(email, mdp);
 
-																																																		session.setAttribute("Nom", u.getNom_client());
-																																																		session.setAttribute("Prénom", u.getPrenom_client());
-																																																		md.setIdSession(u.getId_client());
+																																																			session.setAttribute("Nom", u.getNom_client());
+																																																			session.setAttribute("Prénom", u.getPrenom_client());
+																																																			md.setIdSession(u.getId_client());
 
-																																																		System.out.println("C'est l id client "+(u.getId_client()));
-																																																		//response.sendRedirect("/Agence de voyage/listFormulaireDeRecherche");
-																																																		request.getRequestDispatcher("/listFormulaireDeRecherche").forward(request, response);
+																																																			System.out.println("C'est l id client "+(u.getId_client()));
+																																																			//response.sendRedirect("/Agence de voyage/listFormulaireDeRecherche");
+																																																			request.getRequestDispatcher("/listFormulaireDeRecherche").forward(request, response);
 
-																																																	}
-																																																	else {
-																																																		HttpSession session =request.getSession(); 
-																																																		session.setAttribute("client", null);
-																																																		int testA = 1 ; 
-																																																		String erreurA = "Mot de passe ou nom d'utilisateur incorrect ! ";
-																																																		session.setAttribute("testA", testA);
-																																																		session.setAttribute("eA", erreurA);
-																																																		request.setAttribute("eA", erreurA);
-																																																		System.out.println(erreurA);
-																																																		request.getRequestDispatcher("/Login.jsp").forward(request, response);
+																																																		}
+																																																		else {
+																																																			HttpSession session =request.getSession(); 
+																																																			session.setAttribute("client", null);
+																																																			int testA = 1 ; 
+																																																			String erreurA = "Mot de passe ou nom d'utilisateur incorrect ! ";
+																																																			session.setAttribute("testA", testA);
+																																																			session.setAttribute("eA", erreurA);
+																																																			request.setAttribute("eA", erreurA);
+																																																			System.out.println(erreurA);
+																																																			request.getRequestDispatcher("/Login.jsp").forward(request, response);
 
-																																																	}
+																																																		}
 																																																	}
 																																																	catch(Exception e) {
 																																																		response.sendRedirect("Login.jsp");
@@ -1151,23 +1151,25 @@ public class ServletAgence extends HttpServlet {
 																																																		String registerEmail = request.getParameter("registerEmail");
 																																																		String registerPassword = request.getParameter("registerPassword");
 																																																		String registerPhone = request.getParameter("registerphone");
-
-																																																		Clients cl = new Clients();
-
-																																																		cl.setNom_client(registernom);
-																																																		cl.setPrenom_client(registerprenom);
-																																																		cl.setEmail_client(registerEmail);
-																																																		cl.setMdp_client(registerPassword);
-																																																		cl.setTel_client(registerPhone);
-																																																		System.out.println("path : " + path);
-
-
-
-																																																		umetier.Inscription(cl);
-																																																		System.out.println("inscription Done !");
-																																																		this.getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
-
-
+																																																		
+																																																		
+																																																		List<String> listEmail=umetier.EmailsRegistration();
+																																																		if(listEmail.contains(registerEmail)==true) {
+																																																			request.setAttribute("mail", "email deja exist");
+																																																			request.getRequestDispatcher("/Registration.jsp").forward(request, response);
+																																																		}
+																																																		else {
+																																																			Clients cl = new Clients();
+																																																			cl.setNom_client(registernom);
+																																																			cl.setPrenom_client(registerprenom);
+																																																			cl.setEmail_client(registerEmail);
+																																																			cl.setMdp_client(registerPassword);
+																																																			cl.setTel_client(registerPhone);
+																																																			System.out.println("path : " + path);
+																																																			umetier.Inscription(cl);
+																																																			System.out.println("inscription Done !");
+																																																			this.getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
+																																																		}
 																																																	}
 
 																																																	else
@@ -1223,6 +1225,19 @@ public class ServletAgence extends HttpServlet {
 																																																				else
 
 																																																					if (path.equals("/RechercheParPlusieursMotsCles")) {
+
+
+
+																																																						request.setAttribute("Type_de_Voyage", typevmetier.liste_Type_de_Voyage1());
+																																																						request.setAttribute("Destination", vmetier.liste_Voyage());
+																																																						System.out.println("la destination est listée");
+																																																						request.setAttribute("duree", vmetier.liste_Voyage());
+																																																						System.out.println("la durée est listée");
+																																																						//request.setAttribute("Voyage", vmetier.liste_Voyage());
+																																																						//System.out.println(vmetier.liste_Voyage());
+																																																						System.out.println("ewa hade bayna");
+
+
 
 																																																						String destination = request.getParameter("destination");
 																																																						String duree = request.getParameter("duree");
@@ -1308,13 +1323,19 @@ public class ServletAgence extends HttpServlet {
 																																																									else
 																																																										if(path.equals("/ProfilClient"))
 																																																										{
-																																																											System.out
-																																																													.println("testoo : "+request.getParameter("idClient"));
+																																																											System.out.println("testoo : "+request.getParameter("idClient"));
 																																																											int idclient = Integer.parseInt(request.getParameter("idClient"));
 																																																											md.setCptUser(idclient);
 																																																											request.setAttribute("ad", clientMetier.getClient(idclient));
-																																																											request.setAttribute("Voyage", vmetier.liste_VoyageConfirmer(idclient));
-																																																											System.out.println(clientMetier.getClient(idclient));
+																																																											if(vmetier.liste_VoyageConfirmer(idclient).isEmpty()==true) {
+																																																												request.setAttribute("VoyageRR", "Pas de voyage confirmé");
+																																																											}
+																																																											else
+																																																											{
+																																																												request.setAttribute("Voyage", vmetier.liste_VoyageConfirmer(idclient));
+																																																												System.out.println(clientMetier.getClient(idclient));
+																																																											}
+
 																																																											System.out.println("profil affiché");
 																																																											request.getRequestDispatcher("/ProfilClient.jsp").forward(request, response);
 
@@ -1432,13 +1453,13 @@ public class ServletAgence extends HttpServlet {
 																																																																		switch(typevmetier.ObtenirNomTypeV(vmetier.getVoyage(Id_Voyage).getFk_id_typev()))
 																																																																		{
 
-																																																																		case "en couple":
+																																																																		case "couple":
 																																																																			request.setAttribute("Remarque", "*Vous Pouvez emmener un binôme");
 																																																																			break;
-																																																																		case "en groupe":
+																																																																		case "groupe":
 																																																																			request.setAttribute("Remarque", "*Vous Pouvez emmener un ensemble de personne");
 																																																																			break;
-																																																																		case "en famille":
+																																																																		case "famille":
 																																																																			request.setAttribute("Remarque", "*Vous Pouvez emmener votre famille");
 																																																																			break;
 																																																																		case "individuel":
@@ -1455,8 +1476,14 @@ public class ServletAgence extends HttpServlet {
 
 																																																																	else 
 																																																																		if (path.equals("/VoyageDuPanier")) {
-																																																																			request.setAttribute("Voyage",vmetier.liste_VoyagePanier(md.getIdSession()));
-																																																																			System.out.println(5);
+																																																																			if(vmetier.liste_VoyagePanier(md.getIdSession()).isEmpty()==true) {
+																																																																				request.setAttribute("VoyagePP","pas de voyage dans le panier");
+																																																																			}
+																																																																			else {
+																																																																				request.setAttribute("Voyage",vmetier.liste_VoyagePanier(md.getIdSession()));
+																																																																				System.out.println(5);
+																																																																			}
+
 																																																																			this.getServletContext().getRequestDispatcher("/Panier.jsp").forward(request, response);
 																																																																		}
 
@@ -1469,7 +1496,7 @@ public class ServletAgence extends HttpServlet {
 																																																																				System.out.println("chnu hada ? : "+ md.getCptUser());
 																																																																				System.out.println("1111 : "+md.getIdSession());
 																																																																				System.out.println("id v : "+Id_Voyage);
-																																																																				
+
 																																																																				panierMetier.ajouterVAuPanier(md.getIdSession(),Id_Voyage);
 
 																																																																				//System.out.println(5);
@@ -1495,13 +1522,13 @@ public class ServletAgence extends HttpServlet {
 																																																																					switch(typevmetier.ObtenirNomTypeV(vmetier.getVoyage(Id_Voyage).getFk_id_typev()))
 																																																																					{
 
-																																																																					case "en couple":
+																																																																					case "couple":
 																																																																						request.setAttribute("Remarque", "*Vous Pouvez emmener un binôme");
 																																																																						break;
-																																																																					case "en groupe":
+																																																																					case "groupe":
 																																																																						request.setAttribute("Remarque", "*Vous Pouvez emmener maximum 5 personnes");
 																																																																						break;
-																																																																					case "en famille":
+																																																																					case "famille":
 																																																																						request.setAttribute("Remarque", "*Vous Pouvez emmener votre famille maximum 4 personnes");
 																																																																						break;
 																																																																					case "individuel":
@@ -1530,13 +1557,13 @@ public class ServletAgence extends HttpServlet {
 																																																																						switch(typevmetier.ObtenirNomTypeV(vmetier.getVoyage(Id_Voyage).getFk_id_typev()))
 																																																																						{
 
-																																																																						case "en couple":
+																																																																						case "couple":
 																																																																							request.setAttribute("Remarque", "*Vous Pouvez emmener un binôme");
 																																																																							break;
-																																																																						case "en groupe":
+																																																																						case "groupe":
 																																																																							request.setAttribute("Remarque", "*Vous Pouvez emmener maximum 5 personnes");
 																																																																							break;
-																																																																						case "en famille":
+																																																																						case "famille":
 																																																																							request.setAttribute("Remarque", "*Vous Pouvez emmener votre famille maximum 4 personnes");
 																																																																							break;
 																																																																						case "individuel":
@@ -1579,13 +1606,13 @@ public class ServletAgence extends HttpServlet {
 																																																																								switch(typevmetier.ObtenirNomTypeV(vmetier.getVoyage(Id_Voyage).getFk_id_typev()))
 																																																																								{
 
-																																																																								case "en couple":
+																																																																								case "couple":
 																																																																									request.setAttribute("Remarque", "*Vous Pouvez emmener un binôme");
 																																																																									break;
-																																																																								case "en groupe":
+																																																																								case "groupe":
 																																																																									request.setAttribute("Remarque", "*Vous Pouvez emmener maximum 5 personnes");
 																																																																									break;
-																																																																								case "en famille":
+																																																																								case "famille":
 																																																																									request.setAttribute("Remarque", "*Vous Pouvez emmener votre famille maximum 4 personnes");
 																																																																									break;
 																																																																								case "individuel":

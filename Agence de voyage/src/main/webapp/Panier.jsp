@@ -122,6 +122,7 @@
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
 							<h2 class="cursive-font primary-color">Panier</h2>
+							<p style="color:red;"><c:out value="${VoyagePP}"/></p>
 
 						</div>
 					</div>
@@ -219,10 +220,7 @@
 
 					<div class="col-md-12 text-center copyright">
 						<p>
-							<small class="block">&copy; 2021 All Rights Reserved.</small> <small
-								class="block">Designed by <a
-								href="http://gettemplates.co/" target="_blank">GetTemplates.co</a>
-							</small>
+							<small class="block">&copy; 2022 All Rights Reserved.</small> 
 						</p>
 					</div>
 

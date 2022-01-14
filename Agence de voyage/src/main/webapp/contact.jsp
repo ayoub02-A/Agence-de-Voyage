@@ -137,7 +137,7 @@
 					<div class="gtco-contact-info">
 						<h3>Contact Information</h3>
 						<ul>
-							<li class="address">198 West 21th Street, <br> Suite 721 New York NY 10016</li>
+							<li class="address">Bachelor UMI <br> Meknes, Maroc</li>
 							<li class="phone"><a href="tel://1234567920">+ 1235 2355 98</a></li>
 							<li class="email"><a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
 							<li class="url"><a href="http://FreeHTML5.co">FreeHTML5.co</a></li>
@@ -180,8 +180,8 @@
 				</div>
 
 				<div class="col-md-12 text-center copyright">
-					<p><small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small> 
-						<small class="block">Designed by <a href="http://gettemplates.co/" target="_blank">GetTemplates.co</a> Demo Images: <a href="http://unsplash.com/" target="_blank">Unsplash</a></small></p>
+					<p><small class="block">&copy; 2022 All Rights Reserved.</small> 
+						
 				</div>
 
 			</div>

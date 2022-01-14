@@ -180,8 +180,8 @@
 				</div>
 
 				<div class="col-md-12 text-center copyright">
-					<p><small class="block">&copy; 2021 All Rights Reserved.</small> 
-						<small class="block">Designed by <a href="http://gettemplates.co/" target="_blank">GetTemplates.co</a> </small></p>
+					<p><small class="block">&copy; 2022 All Rights Reserved.</small> 
+						
 				</div>
 
 			</div>

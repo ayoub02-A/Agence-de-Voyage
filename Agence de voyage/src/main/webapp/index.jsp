@@ -350,10 +350,8 @@
 				<div class="row">
 					<div
 						class="col-md-8 col-md-offset-2 text-center gtco-heading animate-box">
-						<h2 class="cursive-font primary-color">Fun Facts</h2>
-						<p>Dignissimos asperiores vitae velit veniam totam fuga
-							molestias accusamus alias autem provident. Odit ab aliquam dolor
-							eius.</p>
+						<h2 class="cursive-font primary-color">Statistics</h2>
+						<p>Découvrez Ce Que Notre Site Contient</p>
 					</div>
 				</div>
 
@@ -364,7 +362,7 @@
 						<div class="feature-center">
 							<span class="counter js-counter" data-from="0" data-to="5"
 								data-speed="5000" data-refresh-interval="50">1</span> <span
-								class="counter-label">Avg. Rating</span>
+								class="counter-label">Nbr De Voyages</span>
 
 						</div>
 					</div>
@@ -373,7 +371,7 @@
 						<div class="feature-center">
 							<span class="counter js-counter" data-from="0" data-to="43"
 								data-speed="5000" data-refresh-interval="50">1</span> <span
-								class="counter-label">Food Types</span>
+								class="counter-label">Nbr De Types</span>
 						</div>
 					</div>
 					<div class="col-md-3 col-sm-6 animate-box"
@@ -381,7 +379,7 @@
 						<div class="feature-center">
 							<span class="counter js-counter" data-from="0" data-to="32"
 								data-speed="5000" data-refresh-interval="50">1</span> <span
-								class="counter-label">Chef Cook</span>
+								class="counter-label">Nbr De Thèmes</span>
 						</div>
 					</div>
 					<div class="col-md-3 col-sm-6 animate-box"
@@ -389,7 +387,7 @@
 						<div class="feature-center">
 							<span class="counter js-counter" data-from="0" data-to="1985"
 								data-speed="5000" data-refresh-interval="50">1</span> <span
-								class="counter-label">Year Started</span>
+								class="counter-label">Nbr D'Hébergements</span>
 
 						</div>
 					</div>
@@ -431,7 +429,7 @@
 
 					<div class="col-md-12 text-center copyright">
 						<p>
-							<small class="block">&copy; 2021 All Rights Reserved.</small> 
+							<small class="block">&copy; 2022 All Rights Reserved.</small> 
 						</p>
 					</div>
 

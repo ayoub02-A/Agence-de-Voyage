@@ -190,6 +190,7 @@
 				<div class="row">
 						<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
 							<h2 class="cursive-font primary-color">Voyage Confirmés </h2>
+							<p style="color:red;"><c:out value="${VoyageRR}"/></p>
 
 						</div>
 					</div>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,6 +33,7 @@
             <div class="card card-4">
                 <div class="card-body">
                     <h2 class="title">Registration </h2>
+                    <p style="color:red;"><c:out value="${mail}"/></p>
                     <form  method="post" action="inscription.php">
                         <div class="row row-space">
                             <div class="col-2">

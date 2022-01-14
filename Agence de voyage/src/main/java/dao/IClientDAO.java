@@ -15,4 +15,5 @@ public interface IClientDAO {
 	public Clients getClient1(int id)  ;
 	public void modifierClientProfil(int cptUser, Clients u);
 	void Contact(String nom, String prenom, String email, String message);
+	public List<String> EmailsRegistration();
 }

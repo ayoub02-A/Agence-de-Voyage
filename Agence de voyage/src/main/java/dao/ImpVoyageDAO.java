@@ -625,8 +625,9 @@ public class ImpVoyageDAO implements IVoyageDao {
 			
 			
 			try {
-				PreparedStatement ps = connection.prepareStatement(" select * from voyage  v where date_depart = ? and (destination = ? or duree = ? OR  budget <= ? or fk_id_typev = ?);");
+				PreparedStatement ps = connection.prepareStatement(" select * from voyage  v where date_depart = ? or destination = ? or duree = ? OR  budget <= ? or fk_id_typev = ?");
 				ps.setDate(1, v.getDate_depart());
+				System.out.println("hna "+v.getDate_depart());
 				ps.setString(2, v.getDestination());
 				ps.setString(3, v.getDuree());
 				ps.setString(4, budget);
@@ -680,6 +681,8 @@ public class ImpVoyageDAO implements IVoyageDao {
 				 
 				}
 				ps.close();
+				
+				System.out.println("hna 2 : "+l);
 
 			} catch (SQLException e) {
 				e.printStackTrace();

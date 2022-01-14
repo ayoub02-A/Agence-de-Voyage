@@ -77,23 +77,35 @@
 	
 	
 		
-		
-	<div id="gtco-features">
+		<div id="gtco-features">
 		<div class="gtco-container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 text-center gtco-heading animate-box">
-					<h2 class="cursive-font">Our Services</h2>
-					<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+					<h2 class="cursive-font"></h2>
+					<p>Agencia offers adventure travel for groups and families. They guide you to familiar 
+					
+					or mysterious places with walking and other outdoor activities.
+
+                    Most accessible to everyone, they vary from a few hours of walking a day to more committed treks.</p>
 				</div>
 			</div>
+			<hr>
+			<br>
 			<div class="row">
+			<div class="col-md-8 col-md-offset-2 text-center gtco-heading animate-box">
+					<h2 class="cursive-font">We make </h2>
+					
+				</div>
 				<div class="col-md-4 col-sm-6">
+				
+					
 					<div class="feature-center animate-box" data-animate-effect="fadeIn">
 						<span class="icon">
 							<i class="ti-face-smile"></i>
 						</span>
-						<h3>Happy People</h3>
-						<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+						<h3>Clients Happy </h3>
+						<p>Our Client Is A King </p>
+							
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-6">
@@ -101,8 +113,8 @@
 						<span class="icon">
 							<i class="ti-thought"></i>
 						</span>
-						<h3>Creative Culinary</h3>
-						<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+						<h3>Multi Choices</h3>
+						<p>By Offering Satisfactory Services</p>
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-6">
@@ -110,11 +122,37 @@
 						<span class="icon">
 							<i class="ti-truck"></i>
 						</span>
-						<h3>Food Delivery</h3>
-						<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+						<h3>bring our services near</h3>
+						<p>From home choosing where to travel</p>
 					</div>
 				</div>
-				
+				<div class="col-md-4 col-sm-6">
+					<div class="feature-center animate-box" data-animate-effect="fadeIn">
+						<span class="icon">
+							<i class="ti-face-smile"></i>
+						</span>
+						<h3>An Amount of theme trip </h3>
+						<p>To Make Your Dreams Real</p>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-6">
+					<div class="feature-center animate-box" data-animate-effect="fadeIn">
+						<span class="icon">
+							<i class="ti-thought"></i>
+						</span>
+						<h3>An Amount of type of trip </h3>
+						<p>To Give Everybody A Chance To Try</p>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-6">
+					<div class="feature-center animate-box" data-animate-effect="fadeIn">
+						<span class="icon">
+							<i class="ti-truck"></i>
+						</span>
+						<h3>An Amount of Lodging</h3>
+						<p>To Feel Everywhere Home</p>
+					</div>
+				</div>
 
 			</div>
 		</div>
@@ -170,7 +208,7 @@
 
 					<div class="col-md-12 text-center copyright">
 						<p>
-							<small class="block">&copy; 2021 All Rights Reserved.</small> <small
+							<small class="block">&copy; 2022 All Rights Reserved.</small> <small
 								class="block">Partie <a
 								href="loginAdmin.jsp" target="_blank"> => Administration</a>
 							</small>

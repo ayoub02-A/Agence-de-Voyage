@@ -208,5 +208,28 @@ public class ImpClientDAO implements IClientDAO {
 		}
 		
 	}
+	
+	@Override
+	public List<String> EmailsRegistration(){
+		Connection connection= DAOFACTORY.getConnection();
+		List<String> cL = new ArrayList<String>();
+		try {
+			PreparedStatement ps = connection.prepareStatement ("SELECT email_client  FROM clients ");	
+            ResultSet rs = ps.executeQuery();
+			
+            while (rs.next()) {
+            	String c  = new String();
+				c=rs.getString("email_client");
+				cL.add(c);
+			}			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cL;
+		
+	}
+	
+	
 
 }
