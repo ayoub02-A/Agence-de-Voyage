@@ -431,10 +431,7 @@
 
 					<div class="col-md-12 text-center copyright">
 						<p>
-							<small class="block">&copy; 2021 All Rights Reserved.</small> <small
-								class="block">Partie <a
-								href="loginAdmin.jsp" target="_blank"> => Administration</a>
-							</small>
+							<small class="block">&copy; 2021 All Rights Reserved.</small> 
 						</p>
 					</div>
 

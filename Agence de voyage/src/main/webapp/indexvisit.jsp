@@ -103,7 +103,7 @@
 								</ul></li>
 							<li class="has-dropdown"><a href="AboutUsVisiteur.jsp">About us</a>
 								<ul class="dropdown">
-									<li><a href="contactVisiteur.jsp">Contact us</a></li>
+									<li><a href="contact.jsp">Contact us</a></li>
 
 								</ul></li>
 
