@@ -1085,7 +1085,7 @@ public class ServletAgence extends HttpServlet {
 																																																session.removeAttribute("client");
 																																																session.invalidate();
 																																																//response.sendRedirect("/Agence de voyage/listFormulaireDeRecherche1");
-																																																request.getRequestDispatcher("/listFormulaireDeRecherche1").forward(request, response);
+																																																request.getRequestDispatcher("/home.jsp").forward(request, response);
 
 
 																																															}
