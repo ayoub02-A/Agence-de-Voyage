@@ -148,8 +148,9 @@ public class ImpVoyageDAO implements IVoyageDao {
 		List<Voyage> Voyage = new ArrayList<Voyage>();
 		Connection conn = DAOFACTORY.getConnection();
 		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT * from voyage  where fk_id_typev=? ;");
-			ps.setInt(1, fk_idtypev);		
+			PreparedStatement ps = conn.prepareStatement("SELECT * from voyage  where fk_id_typev=? and date_depart >= ?;");
+			ps.setInt(1, fk_idtypev);	
+			ps.setDate(2, new java.sql.Date(System.currentTimeMillis()));
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Voyage v = new Voyage();
@@ -214,8 +215,9 @@ public class ImpVoyageDAO implements IVoyageDao {
 		List<Voyage> Voyage = new ArrayList<Voyage>();
 		Connection conn = DAOFACTORY.getConnection();
 		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT * from voyage  where fk_id_vtheme=? ;");
+			PreparedStatement ps = conn.prepareStatement("SELECT * from voyage  where fk_id_vtheme=? and date_depart >= ?;");
 			ps.setInt(1, fk_idthemev);		
+			ps.setDate(2, new java.sql.Date(System.currentTimeMillis()));
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Voyage v = new Voyage();
@@ -278,8 +280,9 @@ public class ImpVoyageDAO implements IVoyageDao {
 		List<Voyage> Voyage = new ArrayList<Voyage>();
 		Connection conn = DAOFACTORY.getConnection();
 		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT * from voyage  where fk_id_heberg=? ;");
+			PreparedStatement ps = conn.prepareStatement("SELECT * from voyage  where fk_id_heberg=? and date_depart >= ?;");
 			ps.setInt(1, fk_idheberv);		
+			ps.setDate(2, new java.sql.Date(System.currentTimeMillis()));
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Voyage v = new Voyage();

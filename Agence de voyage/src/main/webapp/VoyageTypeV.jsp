@@ -1,3 +1,7 @@
+<%if(session.getAttribute("client")==null){
+	response.sendRedirect("Login.jsp");
+}
+%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -109,7 +113,7 @@
 			<div class="row">
 
 				<div class="col-lg-4 col-md-4 col-sm-6">
-					<a href="" class="fh5co-card-item ">
+					<a href="AllDetailsTrip?Id_Voyage=${e.getId_voyage()}" class="fh5co-card-item ">
 						<figure>
 							<div class="overlay"><i class="ti-plus"></i></div>
 							<img src="data:image/jpg;base64,${e.getBase64Image()}" width="350" height="350" value="${e.getPhoto_voyage()}"/>

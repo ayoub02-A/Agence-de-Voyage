@@ -176,7 +176,7 @@ public class ServletAgence extends HttpServlet {
 			}
 			catch (Exception e) {
 				// TODO: handle exception
-				response.sendRedirect("page_404.jsp");
+				response.sendRedirect("loginAdmin.jsp");
 				e.printStackTrace();
 			}
 		}
@@ -1095,6 +1095,8 @@ public class ServletAgence extends HttpServlet {
 
 
 																																																if (path.equals("/login.php")) {
+																																																	try {
+																																																	
 																																																	System.out.println(4);
 																																																	String email = request.getParameter("email");
 																																																	String mdp = request.getParameter("mdp");
@@ -1129,6 +1131,11 @@ public class ServletAgence extends HttpServlet {
 																																																		System.out.println(erreurA);
 																																																		request.getRequestDispatcher("/Login.jsp").forward(request, response);
 
+																																																	}
+																																																	}
+																																																	catch(Exception e) {
+																																																		response.sendRedirect("Login.jsp");
+																																																		e.printStackTrace();
 																																																	}
 
 																																																}
@@ -1301,9 +1308,10 @@ public class ServletAgence extends HttpServlet {
 																																																									else
 																																																										if(path.equals("/ProfilClient"))
 																																																										{
+																																																											System.out
+																																																													.println("testoo : "+request.getParameter("idClient"));
 																																																											int idclient = Integer.parseInt(request.getParameter("idClient"));
 																																																											md.setCptUser(idclient);
-
 																																																											request.setAttribute("ad", clientMetier.getClient(idclient));
 																																																											request.setAttribute("Voyage", vmetier.liste_VoyageConfirmer(idclient));
 																																																											System.out.println(clientMetier.getClient(idclient));
@@ -1457,11 +1465,14 @@ public class ServletAgence extends HttpServlet {
 
 
 																																																																				int Id_Voyage = Integer.parseInt(request.getParameter("Id_Voyage"));
-																																																																				System.out.println(Id_Voyage);
-																																																																				System.out.println( md.getCptUser());
+																																																																				System.out.println("id v : "+Id_Voyage);
+																																																																				System.out.println("chnu hada ? : "+ md.getCptUser());
+																																																																				System.out.println("1111 : "+md.getIdSession());
+																																																																				System.out.println("id v : "+Id_Voyage);
+																																																																				
 																																																																				panierMetier.ajouterVAuPanier(md.getIdSession(),Id_Voyage);
 
-																																																																				System.out.println(5);
+																																																																				//System.out.println(5);
 
 																																																																				//response.sendRedirect("/Agence de voyage/VoyageDuPanier");
 																																																																				request.getRequestDispatcher("/VoyageDuPanier").forward(request, response);
@@ -1550,7 +1561,7 @@ public class ServletAgence extends HttpServlet {
 																																																																							//System.out.println(5);
 
 																																																																							//response.sendRedirect("/Agence de voyage/ProfilClient");
-																																																																							request.getRequestDispatcher("/ProfilClient").forward(request, response);
+																																																																							request.getRequestDispatcher("/VoyageDuPanier").forward(request, response);
 																																																																						}
 																																																																						else
 																																																																							if (path.equals("/AllDetailsTripapresRejoin"))
@@ -1592,7 +1603,7 @@ public class ServletAgence extends HttpServlet {
 																																																																									int Id_Voyage = Integer.parseInt(request.getParameter("Id_Voyage"));
 																																																																									panierMetier.SupprimerDuPanier(md.getIdSession(),Id_Voyage);
 																																																																									request.setAttribute("i", 1);
-																																																																									this.getServletContext().getRequestDispatcher("/PanierClient.jsp").forward(request, response);
+																																																																									this.getServletContext().getRequestDispatcher("/VoyageDuPanier").forward(request, response);
 																																																																								}
 																																																																								else
 																																																																									if(path.equals("/contact")) {

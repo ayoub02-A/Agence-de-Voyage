@@ -1,3 +1,7 @@
+<%if(session.getAttribute("client")==null){
+	response.sendRedirect("Login.jsp");
+}
+%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 
